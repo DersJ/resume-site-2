@@ -57,13 +57,17 @@ def post_list(request):
 
 def post_update(request, id=None):
 	instance = get_object_or_404(Post, id=id)
-	
-	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
-	if(form.is_valid):
-		instance = form.save(commit=False)
-		instance.save()
-		messages.success(request, "Item saved")
-		return HttpResponseRedirect(instance.get_absolute_url())
+
+	if request.method=="POST":
+		form = PostForm(request.POST or None, request.FILES or None, instance=instance)
+		try:
+			if(form.is_valid):
+				form.save(commit=False).save()
+				messages.success(request, "Item saved")
+		except Exception as e:
+			messages.warning(request, "Your post was not saved due to an error: {}".format(e))
+	else:
+		form = PostForm(instance=instance)
 
 	context = {
 		"title": instance.title,
