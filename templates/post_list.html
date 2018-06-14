@@ -1,0 +1,54 @@
+{%extends "base.html" %}
+{% block content %}
+<div class="container">
+<div calss="row">
+<div class='col-sm-8 offset-sm-2'>
+</br>
+
+
+{% for obj in object_list %}
+<div class="row">
+
+<div class="col-sm-12 ">
+<div class="card" >
+  {% if obj.image %}
+  <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{obj.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><small>Posted {{obj.timestamp|timesince}} ago</small></h6>
+    <p class="card-text">{{obj.content|linebreaks|truncatechars:120}}</p>
+    <a href="{{obj.get_absolute_url}}" class="btn btn-primary">View</a>
+  </div>
+</div>
+</div>
+
+</div>
+</br>
+
+
+
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}=1">&laquo; first</a>
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
+            <a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+</div>
+</div>
+{% endblock content %}

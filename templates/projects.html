@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{%load staticfiles%}
+{%block content %}
+<div class="container my-container">
+<h3>Projects</h3>
+</br>
+<div class="row">
+<div class="col">
+<div class="card-deck">
+<div class="card">
+    <img class="card-img-top" src="{% static 'projects/jarvis.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Open Jarvis</h5>
+      <p class="card-text">At the 2016 HackTJ hackathon, two partners and I created a open source home automation AI called Open Jarvis which won the Best Hardware Hack award. Check it out on <a href="https://github.com/Evanc123/openJarvis" target="_blank">github</a>.</p>
+       
+    </div>
+    <div class="card-footer text-muted">
+    	<a href="https://github.com/Evanc123/openJarvis" target="_blank" class="btn btn-primary">View</a>
+  	</div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{% static 'projects/essay.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">English Final Website</h5>
+      <p class="card-text">For my English 105 class at UNC, I elected to present my portfolio from the semester on a hand-built website. Check it out <a href="http://www.andersjuengst.com/engl105/index.html">here</a>.</p>
+      
+    </div>
+    <div class="card-footer text-muted">
+    <a href="http://www.andersjuengst.com/engl105/index.html" target="_blank" class="btn btn-primary">View</a>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="{% static 'projects/flickr.jpg' %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Photography</h5>
+      <p class="card-text">Photography has been a hobby of mine for a few years now. Check out my <a href="https://www.flickr.com/photos/dersj/" target="_blank">flickr</a>.</p>
+      
+    </div>
+    <div class="card-footer text-muted">
+    <a href="https://www.flickr.com/photos/dersj/" target="_blank" class="btn btn-primary">View</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+{%endblock content%}

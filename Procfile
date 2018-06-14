@@ -1,0 +1,1 @@
+web: gunicorn resumesite2.wsgi
