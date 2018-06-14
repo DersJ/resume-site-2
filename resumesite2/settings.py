@@ -31,6 +31,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = [
     'resume-site-2.herokuapp.com',
     '127.0.0.1',
+    'www.andersjuengst.com'
     ]
 
 
