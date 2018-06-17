@@ -1,0 +1,162 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+ 	margin:0;
+	}
+	
+h1 {
+  	font-family: Bungee;
+    text-align: center;
+	font-size: 60px;
+}
+
+.title {
+	
+ 	color: #fff;
+ 	padding: 0px;
+	position: absolute;
+ 	left: 0;
+  	top: 40%;
+  	width: 100%;
+  	text-align: center;
+	opacity: 1;
+	background-color: rgb(61, 76, 83); /* Fallback for older browsers without RGBA-support */
+    background: rgba(61, 76, 83, 0.8);
+}
+.titlebg {
+	background-color: #3D4B52;
+	
+}
+
+
+
+h3 {
+	font-family: Droid Serif;
+	text-align: center;
+	font-size: 23px;
+	}
+p {
+    font-family: Droid Serif;
+    font-size: 16px;
+	line-height: 24px;
+}
+
+ul.topnav{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(61, 76, 83);
+	
+	}
+ul.topnav li {float: left}
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+	font-family: Droid Sans;
+}
+ul.topnav li a:hover:not(.active) {background-color: #080A0B;}
+ul.topnav li a.active {background-color: #4CAF50;}
+ul.topnav li.right {float: right;}
+	
+.table {
+	display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+
+}
+.navbar { align-content: stretch;
+	background-color: #3D4B52;
+}
+
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.9;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bgimg-1 {
+  background-image: url("bg3.jpg");
+  min-height: 500px;
+}
+.bgimg-2 {
+  background-image: url("predator.jpg");
+  min-height: 500px;
+}
+
+.desc {
+	padding: 50px 15%;
+	
+	
+}
+
+a.desc {
+	color: #FFFFFF;
+	text-decoration: none;
+	background-color: #3D4B52;
+	
+	padding: 10px 15px;
+	font-family: Droid Sans;
+	
+}
+.button {
+	margin: 0 auto;
+	text-align: center;
+}
+.add {
+	color: red;
+	text-decoration: underline;
+}
+.del {
+	color: darkblue;
+	text-decoration: line-through;
+}
+
+.worksCited {
+	font-family: Droid Serif;
+	list-style: none;
+	padding-left:0;
+}
+.wCtitle {
+	text-align: center;
+	
+	
+}
+.centerline {
+	text-align:center;
+}
+.main {
+	font-family: Droid Serif;
+	text-align: left;
+	
+}
+.main h4{
+	font-size: 20px;
+	margin: 0;
+}
+.desc1 {
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 60;
+}
+
+#HIDDENDIV {
+    display: none;
+}
+
+#passw {
+  padding: 50px 15%;
+  font-family: Droid Serif;
+  font-size: 16px;
+line-height: 24px;
+}
+
+#table.show tr > *:nth-child(1) {
+    display: block;
+}
