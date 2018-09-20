@@ -1,0 +1,61 @@
+{%load staticfiles%}
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>105.93</title>
+<link href="https://fonts.googleapis.com/css?family=Bungee|Droid+Sans|Droid+Serif" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/engl105style2.css' %}">
+
+<style>
+.bgimg-1 {
+  background-image: url("{% static "bg3.jpg" %}");
+  min-height: 500px;
+}
+.bgimg-2 {
+  background-image: url("{% static "predator.jpg" %}");
+  min-height: 500px;
+}
+</style>
+</head>
+
+<body>
+
+
+<div class="bgimg-1">
+		<div class="title" >
+		
+			<h1>ENGL 105.93 - Anders Juengst</h1></div>
+</div>
+<div class="navbar">
+	<div class="table">
+		<ul class="topnav">
+  			<li><a href="/engl105/">Home</a></li>
+  			<li><a href="/engl105/personal/">The Coaching Complex</a></li>
+  			<li><a href="/engl105/science/">Kinesthetic Motor Imagery</a></li>
+  			<li><a href="/engl105/conflict/">Drone Strikes in Modern Warfare</a></li>
+  			<li><a href="/engl105/reflection/">Reflection</a></li>
+		</ul>
+	</div>
+</div>
+
+
+
+<div class="main">
+
+	{% block content %}
+	{% endblock content %}
+
+
+</div>
+
+	
+	
+
+
+<div class="bgimg-2">
+</div>
+
+
+</body>
+</html>

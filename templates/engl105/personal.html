@@ -1,32 +1,6 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>105.93</title>
-<link href="https://fonts.googleapis.com/css?family=Bungee|Droid+Sans|Droid+Serif" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./style2.css">
-</head>
-
-<body>
-
-
-<div class="bgimg-1">
-		<div class="title" >
-		
-			<h1>ENGL 105.93 - Anders Juengst</h1></div>
-</div>
-<a name="e"></a>
-<div class="navbar">
-	<div class="table">
-		<ul class="topnav">
-  			<li><a href="./index.html">Home</a></li>
-  			<li><a href="./personal.html#e">The Coaching Complex</a></li>
-  			<li><a href="./science.html#e">Kinesthetic Motor Imagery</a></li>
-  			<li><a href="./conflict.html#e">Drone Strikes in Modern Warfare</a></li>
-  			<li><a href="./reflection.html#e">Reflection</a></li>
-		</ul>
-	</div>
-</div>
+{% extends "engl105/base.html" %}
+{%load staticfiles%}
+{%block content %}
 
 
 <div id="passw">
@@ -146,13 +120,5 @@ else {  alert('Invalid Password!'); password.setSelectionRange(0, password.value
 </tr>
 </table>
 </div>
-</div>
 
-
-
-<div class="bgimg-2">
-</div>
-
-
-</body>
-</html>
+{% endblock content %}
