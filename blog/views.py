@@ -9,6 +9,8 @@ from .forms import PostForm
 
 
 def post_create(request):
+	if not request.user.is_authenticated:
+		return redirect('/blog/denied/')
 	if (request.method == 'POST'):
 		form = PostForm(request.POST, request.FILES or None)
 		if(form.is_valid):
@@ -56,6 +58,8 @@ def post_list(request):
 
 
 def post_update(request, id=None):
+	if not request.user.is_authenticated:
+		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 
 	if request.method=="POST":
@@ -78,6 +82,8 @@ def post_update(request, id=None):
 	return render(request, "post_form.html", context)
 
 def post_delete(request, id=None):
+	if not request.user.is_authenticated:
+		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 	instance.delete()
 	messages.success(request, "Successfully Deleted")
