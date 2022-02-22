@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "blog" "/blog" %}
+    {% breadcrumb instance.title "blog.views.post_detail" instance.id %}
+{% endblock %}
+
 {% block head_title %} {{instance.title}} | {{block.super}} {%endblock head_title%}
 
 {%block content %}

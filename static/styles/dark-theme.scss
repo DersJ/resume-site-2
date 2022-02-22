@@ -1,0 +1,67 @@
+.dark {
+    /* redefine theme colors for dark theme */
+    $primary: #FFD22E;
+    $secondary: #111111;
+    $success: #419b1e;
+    $dark: #000;
+
+    $gray-500: #555;
+    $gray-600: #444;
+    $gray-700: #333;
+    $gray-800: #222;
+    $gray-900: #111111;
+
+    $header-bg: #111;
+    $card-bg: #3F3E3E;
+
+    $theme-colors: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "danger": $danger,
+        "info": $indigo,
+        "dark": $dark,
+        "light": $light,
+    );
+
+    /* redefine theme color variables */
+    @each $color, $value in $theme-colors {
+        --#{$variable-prefix}#{$color}: #{$value};
+    }
+
+    /* redefine theme color rgb vars (used for bg- colors) */
+    $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+    @each $color, $value in $theme-colors-rgb {
+        --#{$variable-prefix}#{$color}-rgb: #{$value};
+    }
+
+    $body-color: #eeeeee;
+    $body-bg: #242424;
+
+    --#{$variable-prefix}body-color: #{$body-color};
+    --#{$variable-prefix}body-bg: #{$body-bg};
+
+    .navbar {
+        background-color: $header-bg;
+    }
+
+    .footer {
+        background-color: $header-bg;
+    }
+    .text-muted {
+        color: $gray-500 !important;
+    }
+    .card {
+        background-color: $card-bg;
+    }
+
+    a {
+        color: $primary;
+        &:hover {
+            color: #555;
+        }
+        &:focus {
+            color: $primary;
+        }
+    }
+}

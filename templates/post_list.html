@@ -1,4 +1,12 @@
 {%extends "base.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "blog" "blog.views.post_list" %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
 <div calss="row">
@@ -10,15 +18,15 @@
 <div class="row">
 
 <div class="col-sm-12 ">
-<div class="card" >
+<div class="card shadow-sm" >
   {% if obj.image %}
   <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
   {% endif %}
   <div class="card-body">
-    <h5 class="card-title">{{obj.title}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted"><small>Posted {{obj.updated|timesince}} ago</small></h6>
-    <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:180}} {% endautoescape %}</p>
-    <a href="{{obj.get_absolute_url}}" class="btn btn-primary">View</a>
+    <h2 class="card-title">{{obj.title}}</h2>
+    <h6 class="card-subtitle mb-2 text-light"><small>Posted {{obj.updated|timesince}} ago</small></h6>
+    <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
+    <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary text-dark">View</a>
   </div>
 </div>
 </div>
