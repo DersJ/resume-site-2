@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d0568e918444dd768d78be20f6f9796efd9dbdf00936006010df638fd1c9d715"
+            "sha256": "74180e9ec6fc37dd6a2aeff368060a5821f0b0a7207a209014ce50065b2c8f68"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,19 +26,19 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:1c6301d9676cb18f2b0feddec393e52b9d5fa8147e6fe9a1665e39fd9739efc3",
-                "sha256:6a8111492a571aeefbac2e4b6df5ce38bdbc16c7d8326f2a60a61c86032c49b0"
+                "sha256:6ad9a2837fb89eb9084ed545af7f29a5e099db93776f1aafe5c08bc15933704a",
+                "sha256:bbe4f4ddfc13469d306f0ca5fa77441ec37ad50dc270755e93260aeafb06d3d1"
             ],
             "index": "pypi",
-            "version": "==1.20.48"
+            "version": "==1.21.4"
         },
         "botocore": {
             "hashes": [
-                "sha256:768acb9a2247155b974a4184b29be321242ef8f61827f4bb958e60f00e476e90",
-                "sha256:8652c11ff05d11d6cea7096aca8df7f8eb87980469860036ff47e196e4625c96"
+                "sha256:692fcad31733674c8faffc65da8ddc8ab4839f407ad8470c103e0e7aed9c7556",
+                "sha256:8e9ae6b718ca318b4aeeee45aa9fad5f52e882a2291d919cfa4b753928223abb"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==1.23.48"
+            "version": "==1.24.4"
         },
         "certifi": {
             "hashes": [
@@ -71,6 +71,15 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==1.0.5"
+        },
+        "django-bootstrap-breadcrumbs": {
+            "hashes": [
+                "sha256:60aab33bf16598ea06250570af596c0fb1719c3b5625d94c1baba6906ad8a28c",
+                "sha256:b17085de5d70d6dcef118e46fe90654f0681434106dd4f5c6d23cd1257fa1882",
+                "sha256:cb051d51cd0f2d90bb5edace51c36930018b7b0085e95dbb60fe550b3eb3abbb"
+            ],
+            "index": "pypi",
+            "version": "==0.9.2"
         },
         "django-compressor": {
             "hashes": [

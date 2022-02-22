@@ -20,6 +20,7 @@ Django = "~=3.2"
 boto3 = "~=1.20"
 django-compressor = "*"
 django-libsass = "*"
+django-bootstrap-breadcrumbs = "*"
 
 [dev-packages]
 

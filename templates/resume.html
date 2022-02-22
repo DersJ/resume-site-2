@@ -1,4 +1,13 @@
-{% extends "base.html" %} {%block content %}
+{% extends "base.html" %} 
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "resume" "/resume" %}
+{% endblock %}
+
+{%block content %}
 <div class="container my-container">
   <div class="row ps-2">
     <div class="col-sm-6">
