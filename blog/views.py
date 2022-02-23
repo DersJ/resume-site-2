@@ -41,7 +41,7 @@ def post_detail(request, id):
 
 
 def post_list(request):
-	queryset_list = Post.objects.all()  #.order_by("-timestamp")
+	queryset_list = Post.objects.filter(public__exact=True)  #.order_by("-timestamp")
 
 	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
 	page_request_var="page"
