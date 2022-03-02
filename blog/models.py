@@ -6,11 +6,14 @@ from django.utils.text import slugify
 # Create your models here.
 class Post(models.Model):
 	title = models.CharField(max_length=200)
+	subtitle = models.CharField(max_length=512, blank=True)
 	slug = models.SlugField(unique=True)
 	image = models.FileField(null=True, blank=True)
 	content = models.TextField()
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+	public = models.BooleanField(default=False)
+	isMarkdownContent = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.title

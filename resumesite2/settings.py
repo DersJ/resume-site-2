@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap_breadcrumbs',
+    'markdownify.apps.MarkdownifyConfig',
     'compressor',
     'blog',
     'storages',
@@ -168,3 +169,41 @@ COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
+
+# https://django-markdownify.readthedocs.io/en/latest/settings.html
+MARKDOWNIFY = {
+    "default": {
+        "WHITELIST_TAGS": [
+            'a',
+            'h1',
+            'h2',
+            'h3',
+            'pre',
+            'span',
+            'div',
+            'br',
+            'abbr',
+            'acronym',
+            'code',
+            'b',
+            'blockquote',
+            'em',
+            'i',
+            'li',
+            'ol',
+            'p',
+            'strong',
+            'ul'
+        ],
+        "MARKDOWN_EXTENSIONS": [
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.nl2br',
+        ],
+        "WHITELIST_ATTRS": [
+            'class',
+            'href',
+        ],
+        "BLEACH": True,
+    },
+}

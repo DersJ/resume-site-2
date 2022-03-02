@@ -9,54 +9,56 @@
 
 {% block content %}
 <div class="container">
-<div calss="row">
-<div class='col-sm-8 offset-sm-2'>
-</br>
+    <div class="row my-1">
+        <div class="col-lg-8 offset-lg-2">
+            {% for obj in object_list %}
+                <div class="card my-4 shadow-sm" >
+                {% if obj.image %}
+                <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{obj.title}}</h2>
+                    <h6 class="card-subtitle mb-2 text-light"><small>
+                        {% if obj.updated != obj.timestamp %}
+                            {{obj.timestamp|date:'F j, Y'}}, updated {{obj.updated|timesince}} ago
+                        {% else %}
+                            {{obj.timestamp|date:'F j, Y'}}
+                        {% endif %}
+                    </small></h6>
 
+                    {% if obj.subtitle %}
+                        {% if obj.isMarkdownContent %}
+                            {% load markdownify %}
+                            {{obj.subtitle|markdownify}}
+                        {% else %}
+                            <p>{{obj.subtitle|linebreaks}}</p>
+                        {% endif %}
+                    {% else %}
+                    <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
+                    {% endif %}
+                    <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary text-dark">View</a>
+                </div>
+                </div>
+            {% endfor %}
 
-{% for obj in object_list %}
-<div class="row">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if object_list.has_previous %}
+                        <a href="?{{ page_request_var }}=1">&laquo; first</a>
+                        <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
+                    {% endif %}
 
-<div class="col-sm-12 ">
-<div class="card shadow-sm" >
-  {% if obj.image %}
-  <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
-  {% endif %}
-  <div class="card-body">
-    <h2 class="card-title">{{obj.title}}</h2>
-    <h6 class="card-subtitle mb-2 text-light"><small>Posted {{obj.updated|timesince}} ago</small></h6>
-    <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
-    <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary text-dark">View</a>
-  </div>
-</div>
-</div>
+                    <span class="current">
+                        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                    </span>
 
-</div>
-</br>
-
-
-
-{% endfor %}
-
-<div class="pagination">
-    <span class="step-links">
-        {% if object_list.has_previous %}
-            <a href="?{{ page_request_var }}=1">&laquo; first</a>
-            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-        </span>
-
-        {% if object_list.has_next %}
-            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
-            <a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-
-</div>
-</div>
+                    {% if object_list.has_next %}
+                        <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
+                        <a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

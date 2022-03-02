@@ -5,8 +5,49 @@
 
 <div class="container my-container">
 
+<div class="my-3 mx-auto text-center p-2" style="max-width: 850px;">
+    <h1 class="logo mb-4">Anders Juengst</h1>
+    <p class="fs-2">Hi! I’m Anders, a senior cloud engineer at <a href="https://www.teradata.com" target="blank">
+        Teradata</a> and professional ultimate player for the <a href="https://theaudl.com/Flyers/" target="blank">Carolina Flyers</a>.</p>
+    <p class="fs-2">I write about software development.</p>
+</div>
 
-<div class="row">
+<div class="my-3 mx-auto" style="max-width: 950px;">
+    <h3>Recent Posts</h3>
+
+    {% for obj in post_list %}
+        <div class="card my-4 shadow-sm" >
+            {% if obj.image %}
+                <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title">{{obj.title}}</h2>
+                <h6 class="card-subtitle mb-2 text-light"><small>
+                    {% if obj.updated != obj.timestamp %}
+                        {{obj.timestamp|date:'F j, Y'}}, updated {{obj.updated|timesince}} ago
+                    {% else %}
+                        {{obj.timestamp|date:'F j, Y'}}
+                    {% endif %}
+                </small></h6>
+
+                {% if obj.subtitle %}
+                    {% if obj.isMarkdownContent %}
+                        {% load markdownify %}
+                        {{obj.subtitle|markdownify}}
+                    {% else %}
+                        <p>{{obj.subtitle|linebreaks}}</p>
+                    {% endif %}
+                {% else %}
+                <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
+                {% endif %}
+                <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary text-dark">View</a>
+            </div>
+        </div>
+    {% endfor %}
+    <small><a href="/blog/">see more</a></small>
+</div>
+
+<!-- <div class="row">
 <div class="col-lg-8 col-md-6">
 <h3> About Anders </h3>
 <h5> Software Engineer at Teradata</h5>
@@ -19,7 +60,7 @@
 <div class="col-lg-4 col-md-6">
 <img src='{% static "headshot1.jpg" %}' class='img-fluid'>
 </div>
-</div>
+</div> -->
 
 <div class='row'>
 <div class='col'>

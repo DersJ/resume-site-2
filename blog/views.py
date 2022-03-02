@@ -7,6 +7,20 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Post
 from .forms import PostForm
 
+def queryRecentPosts(request, count='all'):
+	queryset = None
+	if not request.user.is_authenticated:
+		queryset = Post.objects.filter(public__exact=True)
+	else:
+		queryset = Post.objects.all()
+	if count == 'all':
+		return queryset
+	else:
+		return queryset[:count]
+
+def homepage(request):
+	queryset = queryRecentPosts(request, 3)
+	return render(request, "home.html", { "post_list": queryset })
 
 def post_create(request):
 	if not request.user.is_authenticated:
@@ -41,9 +55,8 @@ def post_detail(request, id):
 
 
 def post_list(request):
-	queryset_list = Post.objects.all()  #.order_by("-timestamp")
-
-	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
+	queryset_list = queryRecentPosts(request)
+	paginator = Paginator(queryset_list, 10) # Show 10 Posts per page
 	page_request_var="page"
 	page = request.GET.get(page_request_var)
 	queryset = paginator.get_page(page)
@@ -52,10 +65,8 @@ def post_list(request):
 		"object_list": queryset,
 		"title": "List",	
 		"page_request_var": page_request_var,
-		}
+	}
 	return render(request, "post_list.html", context)
-
-
 
 def post_update(request, id=None):
 	if not request.user.is_authenticated:
