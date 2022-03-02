@@ -1,11 +1,8 @@
 .dark {
     /* redefine theme colors for dark theme */
-    // $primary: #9AC2C5;
-    // $secondary: #869D96;
-
-    // $primary: #869D96;
-    $secondary: #FFD22E;
     $primary: #FFD22E;
+    $secondary: #CBDEE1;
+    
 
 
     $success: #419b1e;
@@ -41,7 +38,7 @@
         --#{$variable-prefix}#{$color}-rgb: #{$value};
     }
 
-    $body-color: #DFDFDF;
+    $body-color: #eeeeee;
     $body-bg: #242424;
 
     --#{$variable-prefix}body-color: #{$body-color};
@@ -62,11 +59,7 @@
     }
 
     a {
-        // color: $secondary;
         color: $primary;
-        // &.nav-link {
-        //     color: $primary;
-        // }
         &:hover {
             color: #555;
         }
@@ -75,7 +68,7 @@
         }
     }
 
-    .logo, .card-title, h3 {
+    .logo, .card-title, h3, h1 {
         color: white;
     }
 
@@ -87,6 +80,20 @@
             background-color: $primary;
             border-color: $primary;
         }
+    }
+
+    .btn-outline-secondary {
+        color: $secondary;
+        border-color: $secondary;
+        &:focus {
+            color: $secondary;
+        }
+        &:hover {
+            color: $dark;
+            background-color: $secondary;
+            border-color: $secondary;
+        }
+        
     }
 
     .tooltip-inner {

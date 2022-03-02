@@ -16,7 +16,7 @@
 <div class='col-lg-8 offset-lg-2 col-sm post'>
 </br>
 {% if instance.image %}
-<img src='{{instance.image.url}}' class='img-fluid' />
+<img src='{{instance.image.url}}' class='img-fluid mb-4 rounded' />
 {% endif %}
 
 <header class="d-flex justify-content-between mb-4">
@@ -25,8 +25,8 @@
         <p> Posted on {{instance.updated}}</p> 
     </div>
     <div>
-        <a href="/blog/" class="mx-2 btn btn-outline-primary">Return to List</a>
-        <button class="copy-link-button btn btn-outline-primary" data-bs-toggle="tooltip" 
+        <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
+        <button class="copy-link-button btn btn-outline-secondary" data-bs-toggle="tooltip" 
         data-bs-placement="bottom" title="Click to copy link">Copy Link</button>
     </div>
 </header>

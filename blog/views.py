@@ -8,11 +8,12 @@ from .models import Post
 from .forms import PostForm
 
 def queryRecentPosts(request, count='all'):
-	queryset = None
-	if not request.user.is_authenticated:
-		queryset = Post.objects.filter(public__exact=True)
-	else:
-		queryset = Post.objects.all()
+	# queryset = None
+	# if not request.user.is_authenticated:
+	# 	queryset = Post.objects.filter(public__exact=True)
+	# else:
+	# 	queryset = Post.objects.all()
+	queryset = Post.objects.filter(public__exact=True)
 	if count == 'all':
 		return queryset
 	else:
