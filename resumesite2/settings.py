@@ -202,6 +202,7 @@ MARKDOWNIFY = {
         ],
         "WHITELIST_ATTRS": [
             'class',
+            'href',
         ],
         "BLEACH": True,
     },

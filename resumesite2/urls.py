@@ -21,11 +21,13 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
+from blog.views import homepage
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
-    path('', TemplateView.as_view(template_name="home.html")),
+	path('', homepage, name='home'),
     path('resume/', TemplateView.as_view(template_name="resume.html")),
     path('projects/', TemplateView.as_view(template_name='projects2.html')),
     path('contact/', TemplateView.as_view(template_name='contact.html')),

@@ -33,7 +33,7 @@
       {% endblock content %}
       <div class="push"></div>
     </div>
-    <div class="my-footer">
+    <div class="my-footer sticky-bottom">
       <footer class="footer">
         <div class="container">
           <div class="row">
@@ -41,9 +41,6 @@
               <span class="text-muted">© Anders Juengst 2022</span>
             </div>
             <div class="col-6 social-col">
-              <a href="https://www.facebook.com/anders.juengst" target="_blank"
-                ><i class="fa fa-facebook"></i
-              ></a>
               <a href="https://twitter.com/ders_J" target="_blank"
                 ><i class="fa fa-twitter"></i
               ></a>
@@ -55,12 +52,6 @@
               <a href="https://github.com/DersJ" target="_blank"
                 ><i class="fa fa-github"></i
               ></a>
-              <a href="https://www.flickr.com/photos/dersj/" target="_blank"
-                ><i class="fa fa-flickr"></i
-              ></a>
-              <a href="https://open.spotify.com/user/dersj" target="_blank"
-                ><i class="fa fa-spotify"></i
-              ></a>
             </div>
           </div>
         </div>
@@ -71,5 +62,37 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function initTooltips() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      }
+
+      document.querySelectorAll('.copy-link-button').forEach(el => {
+        el.addEventListener('click', function(e) {
+            e.preventDefault();
+            // do the copy logic ....
+            var inputc = document.body.appendChild(document.createElement("input"));
+            inputc.value = window.location.href;
+            inputc.focus();
+            inputc.select();
+            document.execCommand('copy');
+            inputc.parentNode.removeChild(inputc);
+            // change title for tooltip
+            el.setAttribute('data-bs-original-title', 'Link copied to clipboard!');
+        
+            // show the tooltip with the new title
+            bootstrap.Tooltip.getInstance(el).show()
+       });
+      el.addEventListener('mouseout', e => {
+        e.preventDefault();
+        el.setAttribute('data-bs-original-title', 'Click to copy link');
+      })
+      })
+      initTooltips();
+    </script>
   </body>
 </html>

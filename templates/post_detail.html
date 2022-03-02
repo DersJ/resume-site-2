@@ -13,14 +13,24 @@
 {%block content %}
 <div class="container">
 <div class="row">
-<div class='col-lg-10 offset-lg-1 col-sm'>
+<div class='col-lg-8 offset-lg-2 col-sm post'>
 </br>
 {% if instance.image %}
 <img src='{{instance.image.url}}' class='img-fluid' />
 {% endif %}
 
-<h1>{{ title }}</h1>
-<p> Posted on {{instance.updated}}</p> 
+<header class="d-flex justify-content-between mb-4">
+    <div>
+        <h1>{{ title }}</h1>
+        <p> Posted on {{instance.updated}}</p> 
+    </div>
+    <div>
+        <a href="/blog/" class="mx-2 btn btn-outline-primary">Return to List</a>
+        <button class="copy-link-button btn btn-outline-primary" data-bs-toggle="tooltip" 
+        data-bs-placement="bottom" title="Click to copy link">Copy Link</button>
+    </div>
+</header>
+
 
 {% autoescape off %}
 
@@ -35,6 +45,11 @@
 </div>
 </div>
 </div>
+
+<script>
+
+
+</script>
 
 
 {% endblock content %}
