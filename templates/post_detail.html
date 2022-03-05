@@ -5,7 +5,7 @@
 {% block breadcrumbs %}
     {{ block.super }}
     {% breadcrumb "blog" "/blog" %}
-    {% breadcrumb instance.title "blog.views.post_detail" instance.id %}
+    {% breadcrumb instance.displayPath "blog.views.post_detail" instance.id %}
 {% endblock %}
 
 {% block head_title %} {{instance.title}} | {{block.super}} {%endblock head_title%}
@@ -13,18 +13,21 @@
 {%block content %}
 <div class="container">
 <div class="row">
-<div class='col-lg-8 offset-lg-2 col-sm post'>
+<div class='col-lg-10 offset-lg-1 col-sm post'>
 </br>
 {% if instance.image %}
 <img src='{{instance.image.url}}' class='img-fluid mb-4 rounded' />
 {% endif %}
 
-<header class="d-flex justify-content-between mb-4">
+<header class="d-lg-flex d-block justify-content-between mb-3">
     <div>
         <h1>{{ title }}</h1>
-        <p> Posted on {{instance.updated}}</p> 
+        <small> Posted on {{instance.updated}}</small> 
     </div>
-    <div>
+    <div class="ms-lg-4 flex-shrink-0">
+        {% if user.is_authenticated %}
+            <a href="{{ changeUrl }}" class="btn btn-outline-secondary">Edit post</a>
+        {% endif %}
         <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
         <button class="copy-link-button btn btn-outline-secondary" data-bs-toggle="tooltip" 
         data-bs-placement="bottom" title="Click to copy link">Copy Link</button>

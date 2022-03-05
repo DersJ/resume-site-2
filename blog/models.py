@@ -6,6 +6,7 @@ from django.utils.text import slugify
 # Create your models here.
 class Post(models.Model):
 	title = models.CharField(max_length=200)
+	displayPath = models.CharField(max_length=40, default="")
 	subtitle = models.CharField(max_length=512, blank=True)
 	slug = models.SlugField(unique=True)
 	image = models.FileField(null=True, blank=True)

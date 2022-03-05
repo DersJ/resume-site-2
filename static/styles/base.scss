@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,900&family=Ubuntu+Mono&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 $font-family-sans-serif: Ubuntu;
+$font-size-base: 1.1rem;
 
 @import "../bootstrap/functions";
 @import "../bootstrap/variables";
@@ -120,4 +121,10 @@ $font-family-sans-serif: Ubuntu;
     p + ul, p + ol {
         margin-top: -16px;
     }
+
+    h2, h3 {
+        margin-top: 32px;
+    }
+
+    margin-bottom: 128px;
 }

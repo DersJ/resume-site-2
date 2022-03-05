@@ -1,14 +1,14 @@
 {% load django_bootstrap_breadcrumbs %}
 
-<nav class="navbar navbar-expand-lg p-4 sticky-top shadow justify-content-between">
+<nav class="navbar navbar-expand p-4 sticky-top shadow justify-content-between">
   <div class="container-fluid">
-    <div class="navbar-brand d-flex align-items-baseline">
+    <div class="navbar-brand d-none d-lg-flex align-items-baseline">
       <a class="" href="/">andersjuengst.com: </a> {% block content %}{% render_breadcrumbs "breadcrumbs.html" %}{% endblock %}
       <!-- <span class="separator">$</span>
       <input type="text" placeholder="Type something..." autofocus id="navbar-input"> -->
     </div>
     
-    <ul class="navbar-nav fs-4 mr-auto">
+    <ul class="navbar-nav mx-auto mx-lg-0 fs-4 mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/"
           >Home</a
