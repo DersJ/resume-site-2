@@ -1,0 +1,18 @@
+<small>
+    Posted on
+{% if post.updated != post.timestamp %} 
+    {{post.updated|date:'F j, Y'}}
+{% else %} 
+    {{post.timestamp|date:'F j, Y'}} 
+{% endif %}
+
+{% with tags=post.tags.all %}
+
+{% if tags %}
+with tags:
+{% for tag in post.tags.all %} 
+    <a href="/blog?tag={{tag.slug}}" class="badge rounded-pill post-tag ms-1">{{ tag.title }}</a>&#32;&#32;
+{% endfor %}
+{% endif %}
+{% endwith %} 
+</small>

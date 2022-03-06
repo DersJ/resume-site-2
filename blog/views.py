@@ -7,13 +7,11 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import Post
 from .forms import PostForm
 
-def queryRecentPosts(request, count='all', sort='newest'):
-	# queryset = None
-	# if not request.user.is_authenticated:
-	# 	queryset = Post.objects.filter(public__exact=True)
-	# else:
-	# 	queryset = Post.objects.all()
+def queryRecentPosts(request, tags, count='all', sort='newest', ):
 	queryset = Post.objects.order_by('{0}timestamp'.format('-' if sort == 'newest' else '')).filter(public__exact=True)
+	print(tags)
+	if len(tags) > 0:
+		queryset = queryset.filter(tags__slug__in=tags)
 	if count == 'all':
 		return queryset
 	else:
@@ -47,7 +45,6 @@ def post_create(request):
 
 def post_detail(request, id):
 	instance = get_object_or_404(Post, id=id)
-
 	context = {
 		"title": instance.title,
 		"instance": instance,
@@ -58,8 +55,10 @@ def post_detail(request, id):
 
 def post_list(request):
 	order = request.GET.get('sortBy', 'newest')
-
-	queryset_list = queryRecentPosts(request, 'all', order)
+	tags = request.GET.get('tag', [])
+	if isinstance(tags, str):
+		tags = [tags]
+	queryset_list = queryRecentPosts(request, tags, 'all', order, )
 	paginator = Paginator(queryset_list, 10) # Show 10 Posts per page
 	page_request_var="page"
 	page = request.GET.get(page_request_var)
@@ -68,7 +67,8 @@ def post_list(request):
 	context = {
 		"object_list": queryset,
 		"title": "List",
-		"sortBy": order,	
+		"sortBy": order,
+		"appliedTags": tags,	
 		"page_request_var": page_request_var,
 	}
 	return render(request, "post_list.html", context)

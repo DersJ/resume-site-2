@@ -1,7 +1,8 @@
 .dark {
     /* redefine theme colors for dark theme */
     $primary: #FFD22E;
-    $secondary: #CBDEE1;
+    // $secondary: #CBDEE1;
+    $secondary: #FFD22E;
     
 
 
@@ -101,5 +102,16 @@
     }
     .tooltip-arrow {
         opacity: 0;
+    }
+
+    .post-tag, .post-tag:focus {
+        border: 1px solid $secondary;
+        color: $secondary;
+        text-decoration: none;
+        &:hover {
+            color: $dark;
+            background-color: $secondary;
+            border-color: $secondary;
+        }
     }
 }

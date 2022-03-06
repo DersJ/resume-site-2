@@ -16,13 +16,28 @@
             {% endif %}
             <header class="mt-4 d-flex justify-content-between align-items-baseline">
                 {% if sortBy == 'newest' %}
-                    <h1 class="text-secondary">Newest Posts</h1>
+                    <h1>Newest Posts</h1>
                     <a class="text-secondary" href="/blog?sortBy=oldest">Sort by oldest first</a>
                 {% else %}
-                    <h1 class="text-secondary">Oldest Posts</h1>
+                    <h1>Oldest Posts</h1>
                     <a class="text-secondary" href="/blog">Sort by newest first</a>
                 {% endif %}
             </header>
+
+            <!-- <div class="accordion">
+                <div class="card accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Filter and sort
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             {% for obj in object_list %}
                 <div class="card my-4 shadow-sm" >
                 {% if obj.image %}
@@ -30,20 +45,14 @@
                 {% endif %}
                 <div class="card-body">
                     <h3 class="card-title">{{obj.title}}</h3>
-                    <h6 class="card-subtitle mb-2 text-light"><small>
-                        {% if obj.updated != obj.timestamp %}
-                            {{obj.timestamp|date:'F j, Y'}}, updated {{obj.updated|timesince}} ago
-                        {% else %}
-                            {{obj.timestamp|date:'F j, Y'}}
-                        {% endif %}
-                    </small></h6>
+                    <div class="mb-2">{% include 'timestamp_tags.html' with post=obj %}</div>
 
                     {% if obj.subtitle %}
                         {% if obj.isMarkdownContent %}
                             {% load markdownify %}
                             {{obj.subtitle|markdownify}}
                         {% else %}
-                            <p>{{obj.subtitle|linebreaks}}</p>
+                            <p class="card-text">{{obj.subtitle|linebreaks}}</p>
                         {% endif %}
                     {% else %}
                     <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>

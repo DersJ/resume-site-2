@@ -4,6 +4,15 @@ from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
 # Create your models here.
+class Tag(models.Model):
+	title = models.CharField(max_length=64)
+	description = models.CharField(max_length=500, blank=True)
+	slug = models.SlugField(unique=True)
+	def __unicode__(self):
+		return self.title
+
+	def __str__(self):
+		return self.title
 class Post(models.Model):
 	title = models.CharField(max_length=200)
 	displayPath = models.CharField(max_length=40, default="")
@@ -15,6 +24,7 @@ class Post(models.Model):
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 	public = models.BooleanField(default=False)
 	isMarkdownContent = models.BooleanField(default=False)
+	tags = models.ManyToManyField(Tag)
 
 	def __unicode__(self):
 		return self.title
@@ -41,6 +51,7 @@ def create_slug(instance, new_slug=None):
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
 	if not instance.slug:
 		instance.slug= create_slug(instance)
+
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)

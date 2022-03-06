@@ -11,7 +11,7 @@
 {% block head_title %} {{instance.title}} | {{block.super}} {%endblock head_title%}
 
 {%block content %}
-<div class="container">
+<div class="container-lg px-4 px-lg-0">
 <div class="row">
 <div class='col-lg-10 offset-lg-1 col-sm post'>
 </br>
@@ -22,9 +22,9 @@
 <header class="d-lg-flex d-block justify-content-between mb-3">
     <div>
         <h1>{{ title }}</h1>
-        <small> Posted on {{instance.updated}}</small> 
+        <div>{% include 'timestamp_tags.html' with post=instance %}</div>
     </div>
-    <div class="ms-lg-4 flex-shrink-0">
+    <div class="ms-lg-4 mt-3 mt-lg-0 flex-shrink-0">
         {% if user.is_authenticated %}
             <a href="{{ changeUrl }}" class="btn btn-outline-secondary">Edit post</a>
         {% endif %}
