@@ -9,7 +9,6 @@ from .forms import PostForm
 
 def queryRecentPosts(request, tags, count='all', sort='newest', ):
 	queryset = Post.objects.order_by('{0}timestamp'.format('-' if sort == 'newest' else '')).filter(public__exact=True)
-	print(tags)
 	if len(tags) > 0:
 		queryset = queryset.filter(tags__slug__in=tags)
 	if count == 'all':
