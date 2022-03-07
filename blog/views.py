@@ -18,7 +18,7 @@ def queryRecentPosts(request, tags, count='all', sort='newest', ):
 		return queryset[:count]
 
 def homepage(request):
-	queryset = queryRecentPosts(request, 3)
+	queryset = queryRecentPosts(request, [], 3)
 	return render(request, "home.html", { "post_list": queryset })
 
 def post_create(request):
