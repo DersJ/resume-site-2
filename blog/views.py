@@ -51,7 +51,6 @@ def post_detail(request, id):
 	context = {
 		"title": instance.title,
 		"instance": instance,
-		"hit_count_response": hit_count_response,
 		"changeUrl": '/admin/blog/post/{0}/change/'.format(id),
 	}
 	return render(request, "post_detail.html", context)
