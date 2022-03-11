@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
 # Create your views here.
 
 from .models import Post
@@ -44,6 +46,8 @@ def post_create(request):
 
 def post_detail(request, id):
 	instance = get_object_or_404(Post, id=id)
+	hit_count = HitCount.objects.get_for_object(instance)
+	hit_count_response = HitCountMixin.hit_count(request, hit_count)
 	context = {
 		"title": instance.title,
 		"instance": instance,
