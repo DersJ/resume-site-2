@@ -62,37 +62,8 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script>
-      function initTooltips() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          
-          return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-      }
-
-      document.querySelectorAll('.copy-link-button').forEach(el => {
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            // do the copy logic ....
-            var inputc = document.body.appendChild(document.createElement("input"));
-            inputc.value = window.location.href;
-            inputc.focus();
-            inputc.select();
-            document.execCommand('copy');
-            inputc.parentNode.removeChild(inputc);
-            // change title for tooltip
-            el.setAttribute('data-bs-original-title', 'Link copied to clipboard!');
-        
-            // show the tooltip with the new title
-            bootstrap.Tooltip.getInstance(el).show()
-       });
-      el.addEventListener('mouseout', e => {
-        e.preventDefault();
-        el.setAttribute('data-bs-original-title', 'Click to copy link');
-      })
-      })
-      initTooltips();
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {% load static %}
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'compressor',
     'blog',
     'storages',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
@@ -213,3 +214,6 @@ MARKDOWNIFY = {
         "BLEACH": True,
     },
 }
+
+HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 15 }
+HITCOUNT_EXCLUDE_USER_GROUP = { 'Administrator', }
