@@ -114,4 +114,22 @@
             border-color: $secondary;
         }
     }
+
+    .filter-tag, .filter-tag:focus {
+        border: 1px solid $body-color;
+        cursor: pointer;
+        color: $body-color;
+        text-decoration: none;
+        &:hover, &.active {
+            color: $dark;
+            background-color: $body-color;
+            border-color: $body-color;
+        }
+    }
+
+    .form-select {
+        background-color: $card-bg;
+        color: #eeeeee;
+        border: none;
+    }
 }
