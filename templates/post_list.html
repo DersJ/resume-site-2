@@ -14,30 +14,37 @@
             {% if user.is_authenticated %}
                 <a href="/blog/create" class="btn btn-outline-secondary">Create new</a>
             {% endif %}
-            <header class="mt-4 d-flex justify-content-between align-items-baseline">
+            <header class="mt-4">
                 {% if sortBy == 'newest' %}
-                    <h1>Newest Posts</h1>
-                    <a class="text-secondary" href="/blog?sortBy=oldest">Sort by oldest first</a>
-                {% else %}
-                    <h1>Oldest Posts</h1>
-                    <a class="text-secondary" href="/blog">Sort by newest first</a>
-                {% endif %}
+                        <h1>Newest Posts</h1>
+                    {% elif sortBy == 'oldest' %}
+                        <h1>Oldest Posts</h1>
+                    {% elif sortBy == 'popular' %} 
+                        <h1>Popular Posts</h1>
+                    {% endif %}
+                <div class="mt-4 d-flex justify-content-between align-items-baseline">
+                    <div class="d-flex align-items-baseline">
+                        <span class="flex-shrink-0 me-2">Filter:</span>
+                        <small>
+                            {% for tag in allTags %}
+                                <a data-slug="{{ tag.slug }}" onclick="toggleTag(this.dataset.slug)" class="badge rounded-pill filter-tag ms-1">{{ tag.title }}</a>&#32;&#32;
+                            {% endfor %}
+                        </small>
+                    </div>
+                    <div class="d-flex align-items-baseline" style="max-width: 300px">
+                        <span class="flex-shrink-0 me-2">Sort:</span>
+                        {% load static %}
+                        <select class="form-select" aria-label="sort select" id="sortSelect"
+                        onchange="applySort(this.options[this.selectedIndex].value)"
+                        style="background-image: url({% static 'styles/selectArrow.svg' %});">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="popular">Most popular</option>
+                        </select>
+                    </div>
+                </div>
             </header>
 
-            <!-- <div class="accordion">
-                <div class="card accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Filter and sort
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             {% for obj in object_list %}
                 <div class="card my-4 shadow-sm" >
                 {% if obj.image %}
@@ -82,4 +89,17 @@
         </div>
     </div>
 </div>
+
+{% load static %}
+<script defer src="{% static 'js/sortFilter.js' %}"></script>
+<script defer>
+    // Iterating over filters and apply 'active' class to proper tags
+    var filters = document.getElementsByClassName('filter-tag');
+    var appliedTags = {{ appliedTags|safe }};
+    for(i = 0; i < filters.length; i++) {
+        if (appliedTags.includes(filters[i].dataset.slug)) {
+            filters[i].classList.add('active');
+        }
+    }
+</script>
 {% endblock content %}

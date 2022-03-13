@@ -2,6 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericRelation
+
+from hitcount.models import HitCount
 
 # Create your models here.
 class Tag(models.Model):
@@ -25,6 +28,11 @@ class Post(models.Model):
 	public = models.BooleanField(default=False)
 	isMarkdownContent = models.BooleanField(default=False)
 	tags = models.ManyToManyField(Tag)
+	hit_count_generic = GenericRelation(
+    	HitCount,
+    	object_id_field='object_pk',
+    	related_query_name='hit_count_generic_relation'
+	)
 
 	def __unicode__(self):
 		return self.title

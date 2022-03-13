@@ -4,19 +4,27 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
+import json
 # Create your views here.
 
-from .models import Post
+from .models import Post, Tag
 from .forms import PostForm
 
 def queryRecentPosts(request, tags, count='all', sort='newest', ):
-	queryset = Post.objects.order_by('{0}timestamp'.format('-' if sort == 'newest' else '')).filter(public__exact=True)
+	orderby = '{0}timestamp'.format('-' if sort == 'newest' else '')
+	if (sort == 'popular'):
+		orderby = 'hit_count_generic__-hits'
+
+	queryset = Post.objects.order_by(orderby).filter(public__exact=True)
 	if len(tags) > 0:
 		queryset = queryset.filter(tags__slug__in=tags)
 	if count == 'all':
 		return queryset
 	else:
 		return queryset[:count]
+
+def getAllTags():
+	return Tag.objects.all()
 
 def homepage(request):
 	queryset = queryRecentPosts(request, [], 3)
@@ -58,9 +66,7 @@ def post_detail(request, id):
 
 def post_list(request):
 	order = request.GET.get('sortBy', 'newest')
-	tags = request.GET.get('tag', [])
-	if isinstance(tags, str):
-		tags = [tags]
+	tags = request.GET.getlist('tag', [])
 	queryset_list = queryRecentPosts(request, tags, 'all', order, )
 	paginator = Paginator(queryset_list, 10) # Show 10 Posts per page
 	page_request_var="page"
@@ -71,7 +77,8 @@ def post_list(request):
 		"object_list": queryset,
 		"title": "List",
 		"sortBy": order,
-		"appliedTags": tags,	
+		"appliedTags": json.dumps(tags),
+		"allTags": getAllTags(),
 		"page_request_var": page_request_var,
 	}
 	return render(request, "post_list.html", context)
