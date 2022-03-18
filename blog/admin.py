@@ -16,3 +16,4 @@ class TagModelAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag, TagModelAdmin)
 admin.site.register(Post, PostModelAdmin)
+admin.site.register(Extra)

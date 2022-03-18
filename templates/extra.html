@@ -1,0 +1,18 @@
+<div class="card mb-4">
+  <div class="card-body">
+    {% if extra.contentType == 'text' %}
+    <div class="d-flex flex-column justify-content-center">
+        <p class="mx-auto">{{ extra.title }}</p>
+        <div class="mx-auto"><i class="">-{{ extra.author }}</i></div>
+    </div>
+       
+    {% else %}
+        <h3 class="card-title">{{ extra.title }}</h3>
+        <p>{{ extra.description }}</p>
+    {% endif %}
+
+    {% if extra.link %}
+        <a class="float-end" href="{{extra.link}}" target="blank">Source</a>
+    {% endif %}
+  </div>
+</div>

@@ -7,7 +7,7 @@ from hitcount.views import HitCountMixin
 import json
 # Create your views here.
 
-from .models import Post, Tag
+from .models import *
 from .forms import PostForm
 
 def queryRecentPosts(request, tags, count='all', sort='newest', ):
@@ -114,3 +114,12 @@ def post_delete(request, id=None):
 	instance.delete()
 	messages.success(request, "Successfully Deleted")
 	return redirect("blog:list")
+
+def favorites(request):
+	results = Extra.objects.all()
+	split = (len(results) // 2) + len(results) % 2
+	context = {
+		"queryset1": results[:split],
+		"queryset2": results[split:],
+	}
+	return render(request, "extras.html", context)

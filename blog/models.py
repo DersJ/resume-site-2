@@ -46,6 +46,36 @@ class Post(models.Model):
 	class Meta:
 		ordering = ["-timestamp", "-updated"]
 
+class Extra(models.Model):
+	title = models.CharField(max_length=400)
+	description = models.TextField(blank=True, default="")
+	author = models.CharField(blank=True, max_length=100)
+	link = models.URLField(blank=True, default="")
+	ARTICLE = 'article'
+	BOOK = 'book'
+	MUSIC = 'music'
+	VIDEO = 'video'
+	PODCAST = 'podcast'
+	TEXT = 'text'
+	CONTENT_TYPE_CHOICES = [
+		(ARTICLE, 'article'),
+		(BOOK, 'book'),
+		(MUSIC, 'music'),
+		(VIDEO, 'video'),
+		(PODCAST, 'podcast'),
+		(TEXT, 'text'),
+	]
+	contentType = models.CharField(
+        max_length=10,
+        choices=CONTENT_TYPE_CHOICES,
+        default=TEXT,
+    )
+	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+	def __str__(self):
+		return self.title
+	def __unicode__(self):
+		return self.title
+
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.title)
 	if new_slug is not None:

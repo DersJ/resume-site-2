@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% load django_bootstrap_breadcrumbs %} 
+{% load static%} 
+{% block breadcrumbs %} 
+    {{ block.super }} 
+{% breadcrumb "about" "/about" %}
+{% endblock %} 
+{% block content %}
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="my-3 mx-auto text-center p-2" style="max-width: 900px;">
+                <p class="fs-2">My favorite quotes, articles, music and more</p>
+            </div>
+        </div>
+            <div class="col-lg-5 offset-lg-1 col">
+                {% for item in queryset1 %}
+                    {% include 'extra.html' with extra=item %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-5 col">
+                {% for item in queryset2 %}
+                {% include 'extra.html' with extra=item %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
