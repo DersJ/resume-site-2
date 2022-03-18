@@ -1,0 +1,80 @@
+{% extends 'base.html' %} 
+{% load django_bootstrap_breadcrumbs %} 
+{% load static%} 
+{% block breadcrumbs %} 
+    {{ block.super }} 
+{% breadcrumb "about" "/about" %}
+{% endblock %} 
+{% block content %}
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-lg-8 col-md-6">
+      <h3>About Anders</h3>
+      <h5>Senior Cloud Services Engineer at Teradata</h5>
+      <p>
+        I graduated from the University of North Carolina at Chapel Hill in May
+        of 2020 with a BS in Computer Science. As a problem solver since birth,
+        I love using my programming and engineering skills to engineer solutions
+        to real world problems.
+      </p>
+      <p>
+        I've been working at
+        <a href="https://www.teradata.com/" target="_blank">Teradata</a>
+        since 2019. After starting as a Software Engineering Intern, I came back
+        to work full time post graduation. Currently, I'm a Senior Cloud
+        Engineer working on the Cloud User Experience team. I build the UIs
+        (Angular) and APIs (GraphQL) that comprise Vantage Console, an analytics
+        & operations platform for Teradata cloud systems. Vantage Console
+        integrates with all 3 major cloud providers to provide administors a
+        single pane of glass interface to manage their deployments. As our team
+        name implies, we are responsible for creating and maintaining an excellent
+        user experience for a wide variety of personas.
+      </p>
+      <p>
+        Additionally, I participate in the development of our open source UI
+        platfrom,
+        <a href="https://teradata.github.io/covalent/v3/#/" target="blank"
+          >Covalent</a
+        >.
+      </p>
+      <p>
+        Outside of , I'm an professional Ultimate Player for the
+        <a href="https://theaudl.com/Flyers/" target="blank">Carolina Flyers</a
+        >. We won the 2021 AUDL Championship, taking down the New York Empire in
+        the final. I finished the 2021 season as the leauge's 2nd highest goal
+        scorer and was named
+        <a
+          href="https://theaudl.com/league/news/2021-audl-rookie-year-anders-juengst-raleigh-flyers"
+          target="blank"
+        >AUDL Rookie of the Year</a>.
+      </p>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <img src='{% static "headshot1.jpg" %}' class="img-fluid" />
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-sm-6">
+      <h3>Resume</h3>
+      <p>View my resume <a href="/resume">here</a>. Also, check out my personal <a href="/projects/">projects</a>.</p>
+    </div>
+  </div>
+  <div class="row mt-2">
+      <div class="col-sm-6">
+        <h3>Contact</h3>
+        <p>
+          Reach out on
+          <a
+            href="https://www.linkedin.com/in/anders-juengst-26317b128/"
+            target="_blank"
+            >LinkedIn</a
+          >
+          or
+          <a href="https://www.facebook.com/anders.juengst" target="_blank"
+            >Facebook</a
+          >
+      </div>
+      <div class="col-sm-6"></div>
+    </div>  
+</div>
+{% endblock content %}
