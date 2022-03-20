@@ -206,10 +206,12 @@ MARKDOWNIFY = {
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
             'markdown.extensions.nl2br',
+            'markdown.extensions.toc',
         ],
         "WHITELIST_ATTRS": [
             'class',
             'href',
+            'id',
         ],
         "BLEACH": True,
     },

@@ -11,15 +11,15 @@
 {% block head_title %} {{instance.title}} | {{block.super}} {%endblock head_title%}
 
 {%block content %}
-<div class="container-lg px-4 px-lg-0">
+<div class="container-lg px-4 px-lg-0 post">
 <div class="row">
-<div class='col-lg-10 offset-lg-1 col-sm post'>
+<div class='col'>
 </br>
 {% if instance.image %}
 <img src='{{instance.image.url}}' class='img-fluid mb-4 rounded' />
 {% endif %}
 
-<header class="d-lg-flex d-block justify-content-between mb-3">
+<header class="d-lg-flex d-block justify-content-between mb-4">
     <div>
         <h1>{{ title }}</h1>
         <div>{% include 'timestamp_tags.html' with post=instance %}</div>
@@ -33,20 +33,33 @@
         data-bs-placement="bottom" title="Click to copy link">Copy Link</button>
     </div>
 </header>
-
-
+</div>
+</div>
 {% autoescape off %}
-
 {% if instance.isMarkdownContent %}
-    {% load markdownify %}
-    {{instance.content|markdownify}}
+<div class="row">
+    <div class="col-lg-3">
+        <div class="sticky-lg-top">
+            <strong>In this post:</strong>
+            {{ toc }} 
+
+            <strong>Related posts:</strong>
+            <ul>
+            {% for p in related %}
+                <li><a href="{{obj.get_absolute_url}}">{{ p.title }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-9">
+        {{ content }}
+    </div>
+</div>
 {% else %}
     <p>{{instance.content|linebreaks}}</p>
 {% endif %}
 
 {% endautoescape %}
-</div>
-</div>
 </div>
 
 

@@ -4,7 +4,10 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
-import json
+from django.utils.safestring import mark_safe
+from django.conf import settings
+from django.db.models import Q
+import json, markdown, bleach
 # Create your views here.
 
 from .models import *
@@ -22,6 +25,9 @@ def queryRecentPosts(request, tags, count='all', sort='newest', ):
 		return queryset
 	else:
 		return queryset[:count]
+
+def getRelatedPosts(post):
+	return Post.objects.filter(Q(tags__in=post.tags.all()) & ~Q(pk=post.pk)).distinct().only("title")
 
 def getAllTags():
 	return Tag.objects.all()
@@ -51,6 +57,20 @@ def post_create(request):
 	}
 	return render(request, "post_form.html", context)
 
+def bleachMarkdown(md, markdownify_settings):
+	whitelist_tags = markdownify_settings.get('WHITELIST_TAGS', bleach.sanitizer.ALLOWED_TAGS)
+	whitelist_attrs = markdownify_settings.get('WHITELIST_ATTRS', bleach.sanitizer.ALLOWED_ATTRIBUTES)
+	whitelist_styles = markdownify_settings.get('WHITELIST_STYLES', bleach.sanitizer.ALLOWED_STYLES)
+	whitelist_protocols = markdownify_settings.get('WHITELIST_PROTOCOLS', bleach.sanitizer.ALLOWED_PROTOCOLS)
+	cleaner = bleach.Cleaner(tags=whitelist_tags,
+								attributes=whitelist_attrs,
+								styles=whitelist_styles,
+								protocols=whitelist_protocols,
+								strip=True
+								)
+
+	html = cleaner.clean(md)
+	return mark_safe(html)
 
 def post_detail(request, id):
 	instance = get_object_or_404(Post, id=id)
@@ -59,8 +79,16 @@ def post_detail(request, id):
 	context = {
 		"title": instance.title,
 		"instance": instance,
+		"related": getRelatedPosts(instance),
 		"changeUrl": '/admin/blog/post/{0}/change/'.format(id),
 	}
+	if instance.isMarkdownContent:
+		markdownify_settings = settings.MARKDOWNIFY['default']
+		extensions = markdownify_settings.get('MARKDOWN_EXTENSIONS', [])
+		md = markdown.Markdown(extensions=extensions)
+		context['content'] = bleachMarkdown(md.convert(instance.content), markdownify_settings)
+		context['toc'] = md.toc
+
 	return render(request, "post_detail.html", context)
 
 
