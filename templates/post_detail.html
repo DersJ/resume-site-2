@@ -46,7 +46,7 @@
             <strong>Related posts:</strong>
             <ul>
             {% for p in related %}
-                <li><a href="{{obj.get_absolute_url}}">{{ p.title }}</a></li>
+                <li><a href="{{p.get_absolute_url}}">{{ p.title }}</a></li>
             {% endfor %}
             </ul>
         </div>
