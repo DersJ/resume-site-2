@@ -51,6 +51,7 @@ class Extra(models.Model):
 	description = models.TextField(blank=True, default="")
 	author = models.CharField(blank=True, max_length=100)
 	link = models.URLField(blank=True, default="")
+	public = models.BooleanField(default=True)
 	ARTICLE = 'article'
 	BOOK = 'book'
 	MUSIC = 'music'

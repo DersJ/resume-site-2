@@ -144,7 +144,7 @@ def post_delete(request, id=None):
 	return redirect("blog:list")
 
 def favorites(request):
-	results = Extra.objects.all()
+	results = Extra.objects.filter(public=True).order_by('title')
 	split = (len(results) // 2) + len(results) % 2
 	context = {
 		"queryset1": results[:split],

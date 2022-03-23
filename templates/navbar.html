@@ -1,6 +1,6 @@
 {% load django_bootstrap_breadcrumbs %}
 
-<nav class="navbar navbar-expand p-4 shadow justify-content-between">
+<nav class="navbar navbar-expand p-2 shadow justify-content-between">
   <div class="container-fluid">
     <div class="navbar-brand d-none d-lg-flex align-items-baseline">
       <a class="" href="/">andersjuengst.com: </a> {% block content %}{% render_breadcrumbs "breadcrumbs.html" %}{% endblock %}
@@ -17,14 +17,14 @@
       <li class="nav-item">
         <a class="nav-link" href="/blog/">Blog</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-      </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="/extras">Extras</a>
       </li> 
       {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
     </ul>
   </div>
 </nav>

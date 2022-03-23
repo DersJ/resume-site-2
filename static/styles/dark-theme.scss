@@ -1,8 +1,9 @@
 .dark {
     /* redefine theme colors for dark theme */
     $primary: #FFD22E;
+    // $primary: #EC4E20;
     // $secondary: #CBDEE1;
-    $secondary: #FFD22E;
+    $secondary: #FFD22E;;
     
 
 
@@ -131,5 +132,10 @@
         background-color: $card-bg;
         color: #eeeeee;
         border: none;
+    }
+
+    .post-title a {
+        text-decoration: none;
+        color: $white;
     }
 }

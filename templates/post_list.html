@@ -51,7 +51,7 @@
                 <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
                 {% endif %}
                 <div class="card-body">
-                    <h3 class="card-title">{{obj.title}}</h3>
+                    <h3 class="card-title post-title"><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
                     <div class="mb-2">{% include 'timestamp_tags.html' with post=obj %}</div>
 
                     {% if obj.subtitle %}
