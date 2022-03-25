@@ -7,6 +7,7 @@ from hitcount.views import HitCountMixin
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.functions import Length
 import json, markdown, bleach
 # Create your views here.
 
@@ -27,10 +28,15 @@ def queryRecentPosts(request, tags, count='all', sort='newest', ):
 		return queryset[:count]
 
 def getRelatedPosts(post):
-	return Post.objects.filter(Q(tags__in=post.tags.all()) & ~Q(pk=post.pk)).distinct().only("title")
+	qs = Post.objects.filter(Q(tags__in=post.tags.all()) & ~Q(pk=post.pk)).distinct().only("title")
+	if len(qs) == 0:
+		return Post.objects.filter(public__exact=True)
+	else:
+		return qs
+
 
 def getAllTags():
-	return Tag.objects.all()
+	return Tag.objects.all().order_by(Length('title').desc())
 
 def homepage(request):
 	queryset = queryRecentPosts(request, [], 3)

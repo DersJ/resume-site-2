@@ -22,17 +22,21 @@
                     {% elif sortBy == 'popular' %} 
                         <h1>Popular Posts</h1>
                     {% endif %}
-                <div class="mt-4 d-flex justify-content-between align-items-baseline">
-                    <div class="d-flex align-items-baseline">
-                        <span class="flex-shrink-0 me-2">Filter:</span>
-                        <small>
+                <div class="d-flex mt-4 justify-content-between align-items-baseline">
+                    <div class="d-flex align-items-baseline filter-list">
+                        <span>
+                            Click to filter
                             {% for tag in allTags %}
-                                <a data-slug="{{ tag.slug }}" onclick="toggleTag(this.dataset.slug)" class="badge rounded-pill filter-tag ms-1">{{ tag.title }}</a>&#32;&#32;
+                                <a data-slug="{{ tag.slug }}" 
+                                onclick="toggleTag(this.dataset.slug)"
+                                class="badge rounded-pill filter-tag ms-1">
+                                    {{ tag.title }}
+                                </a>&#32;&#32;
                             {% endfor %}
-                        </small>
+                        </span>
                     </div>
-                    <div class="d-flex align-items-baseline" style="max-width: 300px">
-                        <span class="flex-shrink-0 me-2">Sort:</span>
+                    <div class="d-flex flex-shrink-0 align-items-baseline" style="max-width: 300px">
+                        <span class="flex-shrink-0 me-2">Sort</span>
                         {% load static %}
                         <select class="form-select" aria-label="sort select" id="sortSelect"
                         onchange="applySort(this.options[this.selectedIndex].value)"
