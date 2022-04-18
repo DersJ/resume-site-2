@@ -43,7 +43,7 @@ def homepage(request):
 	return render(request, "home.html", { "post_list": queryset })
 
 def post_create(request):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	if (request.method == 'POST'):
 		form = PostForm(request.POST, request.FILES or None)
@@ -118,7 +118,7 @@ def post_list(request):
 	return render(request, "post_list.html", context)
 
 def post_update(request, id=None):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 
@@ -142,7 +142,7 @@ def post_update(request, id=None):
 	return render(request, "post_form.html", context)
 
 def post_delete(request, id=None):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 	instance.delete()

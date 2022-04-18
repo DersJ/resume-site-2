@@ -1,11 +1,7 @@
 .dark {
     /* redefine theme colors for dark theme */
-    $primary: #FFD22E;
-    // $primary: #EC4E20;
-    // $secondary: #CBDEE1;
-    $secondary: #FFD22E;;
-    
-
+    $primary: #ffd22e;
+    $secondary: #ffd22e;
 
     $success: #419b1e;
     $dark: #000;
@@ -17,7 +13,7 @@
     $gray-900: #111111;
 
     $header-bg: #111;
-    $card-bg: #3F3E3E;
+    $card-bg: #3f3e3e;
 
     $theme-colors: (
         "primary": $primary,
@@ -70,7 +66,10 @@
         }
     }
 
-    .logo, .card-title, h3, h1 {
+    .logo,
+    .card-title,
+    h3,
+    h1 {
         color: white;
     }
 
@@ -95,7 +94,6 @@
             background-color: $secondary;
             border-color: $secondary;
         }
-        
     }
 
     .tooltip-inner {
@@ -105,7 +103,8 @@
         opacity: 0;
     }
 
-    .post-tag, .post-tag:focus {
+    .post-tag,
+    .post-tag:focus {
         border: 1px solid $secondary;
         color: $secondary;
         text-decoration: none;
@@ -116,12 +115,14 @@
         }
     }
 
-    .filter-tag, .filter-tag:focus {
+    .filter-tag,
+    .filter-tag:focus {
         border: 1px solid $body-color;
         cursor: pointer;
         color: $body-color;
         text-decoration: none;
-        &:hover, &.active {
+        &:hover,
+        &.active {
             color: $dark;
             background-color: $body-color;
             border-color: $body-color;
@@ -137,5 +138,16 @@
     .post-title a {
         text-decoration: none;
         color: $white;
+    }
+
+    form.profile-form {
+        .form-check-input:checked {
+            background-color: $primary;
+            border-color: $primary;
+            background-image: url("check.svg");
+        }
+        .form-submit {
+            border: none;
+        }
     }
 }

@@ -9,22 +9,32 @@
     </div>
     
     <ul class="navbar-nav mx-auto mx-lg-0 fs-4 mr-auto">
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="/"
           >Home</a
         >
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="/blog/">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="/extras">Extras</a>
       </li> 
-      {% endif %}
       <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/accounts/profile">Profile</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link text-secondary" href="/accounts/logout">Logout</a>
       </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link text-secondary" href="/accounts/login">Login</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

@@ -58,6 +58,7 @@ class Extra(models.Model):
 	VIDEO = 'video'
 	PODCAST = 'podcast'
 	TEXT = 'text'
+	MEME = 'meme'
 	CONTENT_TYPE_CHOICES = [
 		(ARTICLE, 'article'),
 		(BOOK, 'book'),
@@ -65,6 +66,7 @@ class Extra(models.Model):
 		(VIDEO, 'video'),
 		(PODCAST, 'podcast'),
 		(TEXT, 'text'),
+		(MEME, 'meme'),
 	]
 	contentType = models.CharField(
         max_length=10,

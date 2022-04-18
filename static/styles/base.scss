@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,900&family=Ubuntu+Mono&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,900&family=Roboto&family=Ubuntu+Mono&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 $font-family-sans-serif: Ubuntu;
 $font-size-base: 1.1rem;
 $badge-font-size: .85em;
@@ -142,4 +142,49 @@ $badge-font-size: .85em;
     ul li {
         margin-bottom: 4px;
     }
+}
+
+.login-card {
+    max-width: 400px;
+    .social-login-btn {
+        text-decoration: none;
+        width: 280px;
+        font-family: Roboto;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        height: 46px;
+
+        &.google {
+            background-color: #fff;
+            color: #555;
+        }
+        &.github {
+            background-color: #000;
+            color: #fff;
+            img {
+                // margin-left: 15px;
+                margin: 0 12px;
+                // margin-top: 15px;
+            }
+        }
+    }
+
+}
+
+.account-card-buttons {
+    .btn {
+        flex: 1 1 0px;
+    }
+}
+
+ul.messages {
+    list-style-type: none;
+    margin-bottom: 0;
+}
+
+.alert {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }

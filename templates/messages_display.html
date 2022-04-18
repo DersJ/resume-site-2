@@ -1,6 +1,6 @@
 {% if messages %}
 
-<div class='messages'>
+<div class="alert alert-dark mt-2 alert-dismissible fade show" role="alert">
 	{% if messages %}
 	<ul class="messages">
 		{% for message in messages %}
@@ -8,6 +8,7 @@
 		{% endfor %}
 	</ul>
 	{% endif %}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 {% endif %}

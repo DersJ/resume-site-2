@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-lg-8 offset-lg-2">
+      <h3>Profile</h3>
+      <p>{{ user.email }}</p>
+
+      {% load crispy_forms_tags %}
+
+      {% crispy user_form %}
+    </div>
+  </div>
+</div>
+{% endblock %}

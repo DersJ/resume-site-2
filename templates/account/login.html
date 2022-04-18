@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% block acc_content %}
+
+    <h3 class="card-title mb-4">Sign in</h3>
+    <p>Choose a social provider to sign in</p>
+    <a class="mx-auto social-login-btn google rounded" href="{% provider_login_url 'google' %}">
+        <img src="{% static 'social_icons/google.svg' %}" width="46" height="46"></img>
+        Continue with Google
+    </a>
+    <a class="mx-auto social-login-btn github rounded" href="{% provider_login_url 'github' %}">
+        <img class="github-icon" src="{% static 'social_icons/github.svg' %}" width="20" height="20"></img>
+        Continue with GitHub
+    </a>
+
+
+{% endblock %}
