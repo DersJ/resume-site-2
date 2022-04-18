@@ -2,6 +2,9 @@
 {%load static%}
 {%block content %}
 
-<h2>Access Denied. You must be logged in to view this page </h2>
+<div class="container mt-4">
+    <h3>Access Denied. You must be logged in to view this page </h3>
+    <button class="me-2 btn btn-outline-primary" type="button" onclick="history.back()">Take me back</button>
+</div>
 
 {%endblock content%}
