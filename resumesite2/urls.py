@@ -22,10 +22,13 @@ from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
 from blog.views import homepage, favorites
+from users.views import profile 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/profile/', profile),
     path('blog/', include('blog.urls', namespace='blog')),
 	path('', homepage, name='home'),
     path('about', TemplateView.as_view(template_name='about.html')),

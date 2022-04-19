@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+{% block acc_content %}
+
+<h3>Sign out?</h3>
+
+<form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    
+    <div class="d-flex mt-4 justify-content-between account-card-buttons">
+        <button class="me-2 btn btn-outline-primary" type="button" onclick="history.back()">Take me back</button>
+        <button class="btn bg-primary text-dark" type="submit">Sign out</button>
+    </div>
+</form>
+{% endblock %}

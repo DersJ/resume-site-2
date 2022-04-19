@@ -28,9 +28,9 @@ def queryRecentPosts(request, tags, count='all', sort='newest', ):
 		return queryset[:count]
 
 def getRelatedPosts(post):
-	qs = Post.objects.filter(Q(tags__in=post.tags.all()) & ~Q(pk=post.pk)).distinct().only("title")
+	qs = Post.objects.filter(Q(tags__in=post.tags.all()) & ~Q(pk=post.pk) & Q(public__exact=True)).distinct().only("title")
 	if len(qs) == 0:
-		return Post.objects.filter(public__exact=True)
+		return Post.objects.filter(Q(public__exact=True) &  ~Q(pk=post.pk))
 	else:
 		return qs
 
@@ -43,7 +43,7 @@ def homepage(request):
 	return render(request, "home.html", { "post_list": queryset })
 
 def post_create(request):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	if (request.method == 'POST'):
 		form = PostForm(request.POST, request.FILES or None)
@@ -80,6 +80,8 @@ def bleachMarkdown(md, markdownify_settings):
 
 def post_detail(request, id):
 	instance = get_object_or_404(Post, id=id)
+	if (not instance.public and not request.user.is_staff):
+		return redirect('/blog/denied/')
 	hit_count = HitCount.objects.get_for_object(instance)
 	hit_count_response = HitCountMixin.hit_count(request, hit_count)
 	context = {
@@ -118,7 +120,7 @@ def post_list(request):
 	return render(request, "post_list.html", context)
 
 def post_update(request, id=None):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 
@@ -142,7 +144,7 @@ def post_update(request, id=None):
 	return render(request, "post_form.html", context)
 
 def post_delete(request, id=None):
-	if not request.user.is_authenticated:
+	if not request.user.is_staff:
 		return redirect('/blog/denied/')
 	instance = get_object_or_404(Post, id=id)
 	instance.delete()

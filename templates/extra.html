@@ -3,13 +3,11 @@
     {% load markdownify %}
 
     {% if extra.contentType == 'text' %}
-    
-    <!-- <h3 class="card-title">Quote</h3> -->
     <div class="d-flex flex-column justify-content-center">
       <p class="mx-auto">{{ extra.description|markdownify }}</p>
       <div class="mx-auto"><i class="">-{{ extra.author }}</i></div>
     </div>
-    <a class="float-end" href="{{extra.link}}" target="blank">Source</a>
+    <a href="{{extra.link}}" target="blank">Source</a>
     
     {% elif extra.contentType == 'book' %}
       <h3 class="card-title"><em>{{ extra.title }}</em></h3>
