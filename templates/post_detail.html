@@ -25,7 +25,7 @@
         <div>{% include 'timestamp_tags.html' with post=instance %}</div>
     </div>
     <div class="ms-lg-4 mt-3 mt-lg-0 flex-shrink-0">
-        {% if user.is_authenticated %}
+        {% if user.is_staff %}
             <a href="{{ changeUrl }}" class="btn btn-outline-secondary">Edit post</a>
         {% endif %}
         <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
