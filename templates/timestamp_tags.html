@@ -1,11 +1,5 @@
 <small>
-    Posted on
-{% if post.updated != post.timestamp %} 
-    {{post.updated|date:'F j, Y'}}
-{% else %} 
-    {{post.timestamp|date:'F j, Y'}} 
-{% endif %}
-
+    Posted on {{post.timestamp|date:'F j, Y'}} 
 {% with tags=post.tags.all %}
 
 {% if tags %}
