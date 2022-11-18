@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    image: 'postrgres:latest'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: ${PGPASSWORD} 
+      POSTGRES_DB: postgres
+    volumes:
+      - /root/data/pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      .
+    volumes:
+      - .:/
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
