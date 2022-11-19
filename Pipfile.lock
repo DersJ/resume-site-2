@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c507a72b1edc2038601813a115b52308f374bf8c5b9dc33a0a4e6faa160be6bd"
+            "sha256": "a44e6c82c8394227bfbab926c35c380fbe506ff69fa4fe990b9fefb81d3ffb8b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -25,7 +25,6 @@
             "version": "==3.5.2"
         },
         "bleach": {
-            "extras": [],
             "hashes": [
                 "sha256:0900d8b37eba61a802ee40ac0061f8c2b5dee29c1927dd1d233e075ebf5a71da",
                 "sha256:4d2651ab93271d1129ac9cbc679f524565cc8a1b791909c4a51eac4446a15994"
