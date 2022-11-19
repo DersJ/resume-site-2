@@ -1,4 +1,4 @@
-FROM python:3 as base
+FROM python:3.8 as base
 
 ENV PYTHONBUFFERED 1
 ENV LANG C.UTF-8
@@ -29,8 +29,4 @@ USER appuser
 # Install application into container
 COPY . .
 
-# Run the application
-ENTRYPOINT ["python", "manage.py", "runserver"]
-
-
-
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   db:
-    image: 'postrgres:latest'
+    image: 'postgres:latest'
     ports:
       - "5432:5432"
     environment:
@@ -16,11 +16,18 @@ services:
       timeout: 5s
       retries: 5
   app:
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG} 
+      SITE_ID: ${SITE_ID}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME}
+      DISABLE_COLLECTSTATIC: ${DISABLE_COLLECTSTATIC}
     build:
       .
-    volumes:
-      - .:/
     depends_on:
       - db
     ports:
-      - "8000:8000"
+      - "80:8000"
