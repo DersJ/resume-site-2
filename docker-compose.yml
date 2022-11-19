@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  db:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: ${PGPASSWORD} 
+      POSTGRES_DB: postgres
+    volumes:
+      - /root/data/pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  app:
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG} 
+      SITE_ID: ${SITE_ID}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_STORAGE_BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME}
+      DISABLE_COLLECTSTATIC: ${DISABLE_COLLECTSTATIC}
+    build:
+      .
+    depends_on:
+      - db
+    ports:
+      - "80:8000"
