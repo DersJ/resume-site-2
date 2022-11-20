@@ -23,7 +23,7 @@
             {% endif %}
             <div class="card-body">
                 <h3 class="card-title post-title"><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
-                <h6 class="card-subtitle mb-2 text-light"><small>
+                <h6 class="card-subtitle mb-2"><small>
                     {% if obj.updated != obj.timestamp %}
                         {{obj.timestamp|date:'F j, Y'}}, updated {{obj.updated|timesince}} ago
                     {% else %}
@@ -41,7 +41,7 @@
                 {% else %}
                 <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
                 {% endif %}
-                <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary text-dark">View</a>
+                <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary">View</a>
             </div>
         </div>
     {% endfor %}

@@ -1,10 +1,9 @@
-.dark {
-    /* redefine theme colors for dark theme */
-    $primary: #ffd22e;
-    $secondary: #ffd22e;
+.light {
+    $primary: #1179aa;
+    $secondary: #1179aa;
 
     $success: #419b1e;
-    $dark: #000;
+    $dark: #222;
 
     $gray-500: #555;
     $gray-600: #444;
@@ -12,7 +11,7 @@
     $gray-800: #222;
     $gray-900: #111111;
 
-    $header-bg: #111;
+    $header-bg: #fff;
     $card-bg: #3f3e3e;
 
     $theme-colors: (
@@ -36,8 +35,8 @@
         --#{$variable-prefix}#{$color}-rgb: #{$value};
     }
 
-    $body-color: #eeeeee;
-    $body-bg: #242424;
+    $body-color: #2d2d2d;
+    $body-bg: #EBEBEB;
 
     --#{$variable-prefix}body-color: #{$body-color};
     --#{$variable-prefix}body-bg: #{$body-bg};
@@ -45,9 +44,9 @@
     .navbar {
         background-color: $header-bg;
         .navbar-brand {
-            color: $white;
+            color: $black;
             a {
-                color: $white;
+                color: $black;
                 &:hover {
                     color: #555;
                 }
@@ -58,49 +57,18 @@
             .dropdown-item {
                 color: $primary;
             }
-            .dropdown-item:active, .dropdown-item:hover {
-                background-color: $gray-500;
-                color: $primary;
-            }
         }
-    }
-
-    .footer {
-        background-color: $header-bg;
-    }
-    .text-muted {
-        color: $gray-500 !important;
-    }
-    .card {
-        background-color: $card-bg;
-    }
-
-    a {
-        color: $primary;
-        &:hover {
-            color: #555;
-        }
-        &:focus {
-            color: $primary;
-        }
-    }
-
-    .logo,
-    .card-title,
-    h3,
-    h1 {
-        color: white;
     }
 
     .btn.bg-primary {
-        color: $dark;
+        color: #eee;
     }
 
     .btn-outline-primary {
         color: $primary;
         border-color: $primary;
         &:hover {
-            color: $dark;
+            color: $white;
             background-color: $primary;
             border-color: $primary;
         }
@@ -113,17 +81,10 @@
             color: $secondary;
         }
         &:hover {
-            color: $dark;
+            color: $white;
             background-color: $secondary;
             border-color: $secondary;
         }
-    }
-
-    .tooltip-inner {
-        background-color: $card-bg;
-    }
-    .tooltip-arrow {
-        opacity: 0;
     }
 
     .post-tag,
@@ -132,7 +93,7 @@
         color: $secondary;
         text-decoration: none;
         &:hover {
-            color: $dark;
+            color: $white;
             background-color: $secondary;
             border-color: $secondary;
         }
@@ -146,31 +107,19 @@
         text-decoration: none;
         &:hover,
         &.active {
-            color: $dark;
+            color: $white;
             background-color: $body-color;
             border-color: $body-color;
         }
     }
 
-    .form-select {
-        background-color: $card-bg;
-        color: #eeeeee;
-        border: none;
-    }
-
-    .post-title a {
-        text-decoration: none;
-        color: $white;
-    }
-
-    form.profile-form {
-        .form-check-input:checked {
-            background-color: $primary;
-            border-color: $primary;
-            background-image: url("check.svg");
+    a {
+        color: $primary;
+        &:hover {
+            color: #1e526a;
         }
-        .form-submit {
-            border: none;
+        &:focus {
+            color: $primary;
         }
     }
 }
