@@ -19,7 +19,15 @@
     />
   </head>
 
-  <body class="dark">
+  <body>
+    <script>
+      if (localStorage.getItem("dark-mode") === 'disabled' ) {
+        document.body.classList.add('light'); 
+      } else {
+        localStorage.setItem("dark-mode", "enabled");
+        document.body.classList.add('dark'); // set state of darkMode on page load
+      }
+    </script>
     {% load django_bootstrap_breadcrumbs %} 
     {% block breadcrumbs %} 
       {% clear_breadcrumbs %} 

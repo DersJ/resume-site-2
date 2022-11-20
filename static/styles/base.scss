@@ -8,6 +8,7 @@ $badge-font-size: .85em;
 @import "../bootstrap/mixins";
 
 @import "dark-theme";
+@import "light-theme";
 @import "../bootstrap/bootstrap";
 
 @import "codehiliteMonokai";
@@ -21,7 +22,7 @@ $badge-font-size: .85em;
 }
 
 .my-container {
-    padding: 20px;
+    padding: 12px;
 }
 
 .pagination {
@@ -67,11 +68,11 @@ $badge-font-size: .85em;
 .navbar-brand {
     font-size: large;
     font-size: 26px;
-    color: $white;
+    color: $body-color;
     font-family: $font-family-monospace;
-    a {
-        color: $white;
+    a { 
         text-decoration: none;
+        color: $body-color;
     }
     a:hover {
         color: #555;
@@ -96,20 +97,9 @@ $badge-font-size: .85em;
     max-width: 85%;
 }
 
-#navbar-input
-{
-    background: transparent;
-    border: none;
-    color: $white;
-    &:focus-visible {
-        outline-style: none;
-    }
-}
-
 .card-footer {
     background-color: rgba(0,0,0, .1);
 }
-
 
 .post {
     .codehilite {

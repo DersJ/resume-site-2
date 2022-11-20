@@ -1,11 +1,9 @@
 {% load django_bootstrap_breadcrumbs %}
 
-<nav class="navbar navbar-expand p-2 shadow justify-content-between">
+<nav class="navbar navbar-expand p-2 shadow-sm justify-content-between">
   <div class="container-fluid">
     <div class="navbar-brand d-none d-lg-flex align-items-baseline ms-md-5">
       <a class="" href="/">andersjuengst.com: </a> {% block content %}{% render_breadcrumbs "breadcrumbs.html" %}{% endblock %}
-      <!-- <span class="separator">$</span>
-      <input type="text" placeholder="Type something..." autofocus id="navbar-input"> -->
     </div>
     
     <ul class="navbar-nav mx-auto mx-lg-0 fs-5 mr-auto">
@@ -27,6 +25,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/resume">Resume</a>
           <a class="dropdown-item" href="/extras">Extras</a>
+          <button class="dropdown-item" onclick="toggleDarkmode()">Theme toggle</button>
         </div>
       </li>
       {% if request.user.is_authenticated %}
@@ -47,3 +46,6 @@
     </ul>
   </div>
 </nav>
+
+{% load static %}
+<script src="{% static 'js/themeToggle.js' %}"></script>
