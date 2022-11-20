@@ -1,5 +1,4 @@
 function toggleDarkmode() {
-    console.log('toggle!');
     if (document.body.classList.contains('dark')) {
         document.body.classList.remove('dark');
         document.body.classList.add('light');
