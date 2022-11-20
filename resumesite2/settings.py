@@ -31,7 +31,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = [
     '0.0.0.0',
     '127.0.0.1',
-    'www.andersjuengst.com'
+    'www.andersjuengst.com',
+    'andersjuengst.com',
     ]
 
 
