@@ -47,7 +47,7 @@
 
         .dropdown-menu {
             background-color: $header-bg;
-            .dropdown-item:active {
+            .dropdown-item:active, .dropdown-item:hover {
                 background-color: $gray-500;
                 color: $primary;
             }
