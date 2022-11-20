@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand p-2 shadow justify-content-between">
   <div class="container-fluid">
-    <div class="navbar-brand d-none d-lg-flex align-items-baseline">
+    <div class="navbar-brand d-none d-lg-flex align-items-baseline ms-md-5">
       <a class="" href="/">andersjuengst.com: </a> {% block content %}{% render_breadcrumbs "breadcrumbs.html" %}{% endblock %}
       <!-- <span class="separator">$</span>
       <input type="text" placeholder="Type something..." autofocus id="navbar-input"> -->
@@ -19,6 +19,15 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item dropdown me-md-5">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/resume">Resume</a>
+          <a class="dropdown-item" href="/extras">Extras</a>
+        </div>
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item">

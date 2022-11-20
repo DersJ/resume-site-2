@@ -28,6 +28,7 @@ django-hitcount = "~=1.3"
 django-allauth = "==0.50"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
+Collectfast = "==2.2.0"
 
 [dev-packages]
 

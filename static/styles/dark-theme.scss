@@ -44,6 +44,14 @@
 
     .navbar {
         background-color: $header-bg;
+
+        .dropdown-menu {
+            background-color: $header-bg;
+            .dropdown-item:active {
+                background-color: $gray-500;
+                color: $primary;
+            }
+        }
     }
 
     .footer {
