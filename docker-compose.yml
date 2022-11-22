@@ -24,7 +24,7 @@ services:
       retries: 5
   app:
     image:
-      ajuengst/resume-site
+      ajuengst/resume-site:latest
     environment:
       DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}
