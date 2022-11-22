@@ -33,10 +33,11 @@ jobs:
 
   redeploy:
     name: Redeploy via webhook
+    environment: resume-site-2
     runs-on: ubuntu-22.04
     needs: [docker]
     steps:
       - name: Deploy
-        uses: joelwmale/webhook-action@master
-        env:
-          WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
+        uses: joelwmale/webhook-action@814998dae0915eaf4faec992291eb956ad37d902
+        with:
+          url: ${{ secrets.DEPLOY_WEBHOOK_URL }} 
