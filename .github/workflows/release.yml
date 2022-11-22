@@ -9,16 +9,14 @@ jobs:
   docker:
     name: Publish to Docker Hub
     runs-on: ubuntu-22.04
-    env:
-      REPO: ${{ secrets.DOCKER_REPO }}
     steps:
       - uses: actions/checkout@v3
-      - name: Login to Docker Hub
-        run: docker login --username=${{ secrets.DOCKER_USER }} --password=${{ secrets.DOCKER_PASS }}
       - name: Build Docker image
         run: docker compose build
+      - name: Login to Docker Hub
+        run: docker login --username=${{ secrets.DOCKER_USER }} --password=${{ secrets.DOCKER_PASS }}
       - name: Publish Docker image
-        run: docker compose push 
+        run: docker push ajuengst/resume-site
 
   redeploy:
     name: Redeploy via webhook
