@@ -1,0 +1,21 @@
+[
+    {
+      "id": "redeploy",
+      "response-message": "Redeploying API server.",
+      "execute-command": "/bin/su",
+      "pass-arguments-to-command": [
+        {
+          "source": "string",
+          "name": "root"
+        },
+        {
+          "source": "string",
+          "name": "-c"
+        },
+        {
+          "source": "string",
+          "name": "'/root/resume-site-2/webhook/redeploy.sh'"
+        }
+      ]
+    }
+]

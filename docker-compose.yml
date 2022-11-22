@@ -23,6 +23,8 @@ services:
       timeout: 5s
       retries: 5
   app:
+    image:
+      ajuengst/resume-site
     environment:
       DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}

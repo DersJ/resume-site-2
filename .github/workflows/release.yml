@@ -1,0 +1,32 @@
+name: Release - Test & Deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    name: Publish to Docker Hub
+    runs-on: ubuntu-22.04
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} 
+             -p ${{ secrets.DOCKER_PASS }}
+      - name: Build Docker image
+        run: docker compose build
+      - name: Publish Docker image
+        run: docker compose push 
+
+  redeploy:
+    name: Redeploy via webhook
+    runs-on: ubuntu-22.04
+    needs: [docker]
+    steps:
+      - name: Deploy
+        uses: joelwmale/webhook-action@master
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
