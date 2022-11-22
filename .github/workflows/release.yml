@@ -7,7 +7,7 @@ on:
 
 jobs:
   docker:
-    name: Publish to Docker Hub
+    name: Build, Publish, Deploy
     runs-on: ubuntu-22.04
     environment: resume-site-2
     steps:
@@ -30,14 +30,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER }}/resume-site:latest
-
-  redeploy:
-    name: Redeploy via webhook
-    environment: resume-site-2
-    runs-on: ubuntu-22.04
-    needs: [docker]
-    steps:
-      - name: Deploy
-        uses: joelwmale/webhook-action@814998dae0915eaf4faec992291eb956ad37d902
+      - name: Deploy via webhook
+        uses: joelwmale/webhook-action@448a17bf857ead98546cfbdbe3b9d4cf979dda95
         with:
           url: ${{ secrets.DEPLOY_WEBHOOK_URL }} 
