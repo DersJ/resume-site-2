@@ -231,7 +231,8 @@ MARKDOWNIFY = {
             'ol',
             'p',
             'strong',
-            'ul'
+            'ul',
+            'img'
         ],
         "MARKDOWN_EXTENSIONS": [
             'markdown.extensions.extra',
@@ -242,6 +243,8 @@ MARKDOWNIFY = {
         "WHITELIST_ATTRS": [
             'class',
             'href',
+            'src',
+            'alt',
             'id',
         ],
         "BLEACH": True,
