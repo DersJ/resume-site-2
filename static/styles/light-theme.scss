@@ -48,13 +48,17 @@
             a {
                 color: $black;
                 &:hover {
-                    color: #555;
+                    color: #ccc;
                 }
             }
         }
         .dropdown-menu {
             background-color: $header-bg;
             .dropdown-item {
+                color: $primary;
+            }
+            .dropdown-item:active, .dropdown-item:hover {
+                background-color: #ccc;
                 color: $primary;
             }
         }
