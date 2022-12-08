@@ -126,4 +126,21 @@
             color: $primary;
         }
     }
+
+    .login-card {
+        .social-login-btn {
+            &.google {
+                background-color: #ddd;
+                color: #000;
+            }
+
+            &.github {
+                background-color: #000;
+                color: #fff;
+                img {
+                    margin: 0 12px;
+                }
+            }
+        }
+    }
 }

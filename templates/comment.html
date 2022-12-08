@@ -1,7 +1,8 @@
 <div class="comment card py-3 px-4 mb-3">
     <div class="comment-header d-flex justify-content-between">
         <div class="comment-author">
-            <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.display_name }}</a>
+            <!-- <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.display_name }}</a> -->
+            <span class="text-primary">{{ comment.user.display_name }}</span>
             <span class="comment-date">
                 at {{ comment.created|date:"P" }} on {{ comment.created|date:"N nS, Y"}}
             </span>

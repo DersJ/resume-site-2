@@ -173,4 +173,22 @@
             border: none;
         }
     }
+
+
+    .login-card {
+        .social-login-btn {
+            &.google {
+                background-color: #fff;
+                color: #555;
+            }
+
+            &.github {
+                background-color: #000;
+                color: #fff;
+                img {
+                    margin: 0 12px;
+                }
+            }
+        }
+    }
 }

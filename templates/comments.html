@@ -6,6 +6,9 @@
         {% load crispy_forms_tags %}
         {% crispy comment_form %}
         {% else %}
+
+        <h4 class="mt-0">Comments</h4>
+            <p><a href="{% url 'account_login' %}">Sign in</a> to leave a comment.</p>
         {% endif %}
     </div>
 

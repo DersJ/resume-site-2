@@ -146,11 +146,13 @@ $badge-font-size: .85em;
         margin-left: 15vw;
     }
 
-    .comments {
-        .btn-primary {
-            border: none;
-        }
+    .comments-container {
+        margin-top: 64px;
     }
+}
+
+.btn-primary {
+    border: none;
 }
 
 .login-card {
@@ -163,20 +165,6 @@ $badge-font-size: .85em;
         display: flex;
         align-items: center;
         height: 46px;
-
-        &.google {
-            background-color: #fff;
-            color: #555;
-        }
-        &.github {
-            background-color: #000;
-            color: #fff;
-            img {
-                // margin-left: 15px;
-                margin: 0 12px;
-                // margin-top: 15px;
-            }
-        }
     }
 
 }
