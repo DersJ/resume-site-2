@@ -12,6 +12,7 @@ $badge-font-size: .85em;
 @import "../bootstrap/bootstrap";
 
 @import "codehiliteMonokai";
+@import "comment";
 
 .logo {
     // font: 72px "Exo Black 900 italic";
@@ -144,6 +145,14 @@ $badge-font-size: .85em;
         max-width: 60vw;
         margin-left: 15vw;
     }
+
+    .comments-container {
+        margin-top: 64px;
+    }
+}
+
+.btn-primary {
+    border: none;
 }
 
 .login-card {
@@ -156,20 +165,6 @@ $badge-font-size: .85em;
         display: flex;
         align-items: center;
         height: 46px;
-
-        &.google {
-            background-color: #fff;
-            color: #555;
-        }
-        &.github {
-            background-color: #000;
-            color: #fff;
-            img {
-                // margin-left: 15px;
-                margin: 0 12px;
-                // margin-top: 15px;
-            }
-        }
     }
 
 }

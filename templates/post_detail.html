@@ -60,6 +60,12 @@
 {% endif %}
 
 {% endautoescape %}
+
+<div class="col-lg-8 offset-lg-3 comments-container">
+    {% include "comments.html" with comments=comments %}
+</div>
+
+
 </div>
 
 

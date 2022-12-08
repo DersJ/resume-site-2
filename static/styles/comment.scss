@@ -1,0 +1,11 @@
+.comments {
+    border-top: 1px solid #ccc;
+    .comment-author > a {
+        text-decoration: none;
+    }
+    .comment-date {
+        margin-inline-start: 4px;
+        font-size: 12pt;
+        font-family: 'Ubuntu Mono', monospace
+    }
+}

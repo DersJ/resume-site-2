@@ -1,0 +1,22 @@
+<div class="comments">
+    <div class="card my-3 py-3 px-4">
+        {% if user.is_authenticated %}
+        <h4 class="mt-0">Leave a comment</h4>
+        <div><span class="float-end"><span id="charCount">0</span> / 1500</span></div>
+        {% load crispy_forms_tags %}
+        {% crispy comment_form %}
+        {% else %}
+
+        <h4 class="mt-0">Comments</h4>
+            <p><a href="{% url 'account_login' %}">Sign in</a> to leave a comment.</p>
+        {% endif %}
+    </div>
+
+
+    {% for comment in comments %}
+    {% if comment.active %}
+        {% include "comment.html" with comment=comment %}
+    {% endif %}
+    {% endfor %}
+</div>
+
