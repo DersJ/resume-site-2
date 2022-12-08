@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -12,7 +12,7 @@ import json, markdown, bleach
 # Create your views here.
 
 from .models import *
-from .forms import PostForm
+from .forms import CommentForm, PostForm
 
 def queryRecentPosts(request, tags, count='all', sort='newest', ):
 	orderby = '{0}timestamp'.format('-' if sort == 'newest' else '')
@@ -79,17 +79,39 @@ def bleachMarkdown(md, markdownify_settings):
 	return mark_safe(html)
 
 def post_detail(request, id):
+	# Get instance
 	instance = get_object_or_404(Post, id=id)
 	if (not instance.public and not request.user.is_staff):
 		return redirect('/blog/denied/')
+	
+	# Get associated hitcount
 	hit_count = HitCount.objects.get_for_object(instance)
+	# Increment hitcount
 	hit_count_response = HitCountMixin.hit_count(request, hit_count)
+
+	# userMostRecentComment = request.user.getMostRecentComment()
+
+	# Comments	
+	if request.method == 'POST' and request.user.is_authenticated:
+		comment_form = CommentForm(request.POST)
+		if comment_form.is_valid():
+			comment = comment_form.save(commit=False)
+			comment.post = instance
+			comment.user = request.user
+			comment.save()
+			return HttpResponseRedirect(reverse('blog:detail', args=[instance.id]))
+	else:
+		comment_form = CommentForm()
+
 	context = {
 		"title": instance.title,
 		"instance": instance,
 		"related": getRelatedPosts(instance),
 		"changeUrl": '/admin/blog/post/{0}/change/'.format(id),
+		"comments": instance.comments.all(),
+		"comment_form": comment_form,
 	}
+
 	if instance.isMarkdownContent:
 		markdownify_settings = settings.MARKDOWNIFY['default']
 		extensions = markdownify_settings.get('MARKDOWN_EXTENSIONS', [])
@@ -159,3 +181,12 @@ def favorites(request):
 		"queryset2": results[split:],
 	}
 	return render(request, "extras.html", context)
+
+def comment_delete(request, id=None):
+	if request.method == 'DELETE':
+		comment = get_object_or_404(Comment, id=id)
+		print(request.user)
+		if request.user == comment.user or request.user.is_staff:
+			comment.delete()
+			return HttpResponse(status=204)
+	return HttpResponse(status=403)

@@ -1,0 +1,21 @@
+<div class="comment card py-3 px-4 mb-3">
+    <div class="comment-header d-flex justify-content-between">
+        <div class="comment-author">
+            <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.display_name }}</a>
+            <span class="comment-date">
+                at {{ comment.created|date:"P" }} on {{ comment.created|date:"N nS, Y"}}
+            </span>
+        </div>
+        <div>
+            {% if user == comment.user %}
+            <button onclick="deleteComment('{{ comment.id }}', this, '{{ csrf_token }}')" class="btn btn-outline-primary">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                Delete
+            </button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="comment-body py-2 px-4">
+        {{ comment.content }}
+    </div>
+</div>

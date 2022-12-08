@@ -6,6 +6,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 from hitcount.models import HitCount
 
+from users.models import User
+
 # Create your models here.
 class Tag(models.Model):
 	title = models.CharField(max_length=64)
@@ -78,6 +80,21 @@ class Extra(models.Model):
 		return self.title
 	def __unicode__(self):
 		return self.title
+
+class Comment(models.Model):
+	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+	content = models.TextField()
+	created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
+	active = models.BooleanField(default=True)
+	score = models.IntegerField(default=0)
+	class Meta:
+		ordering = ('-score', '-created')
+
+	def __str__(self):
+		return 'Comment by {} on {}'.format(self.user, self.post)
+
 
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.title)

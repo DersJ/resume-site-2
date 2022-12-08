@@ -48,11 +48,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
 
+    def get_absolute_url(self):
+        return f"/users/{self.id}"
+
     def get_full_name(self):
         return self.full_name
 
     def get_display_name(self):
         return self.display_name
+    
+    def getMostRecentComment(self):
+        return self.comments.order_by('-created').first().created
 
     def __str__(self):
         return f"{self.email}"

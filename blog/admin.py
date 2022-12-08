@@ -14,6 +14,14 @@ class PostModelAdmin(admin.ModelAdmin):
 class TagModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
+class CommentModelAdmin(admin.ModelAdmin):
+	list_display = ["__str__", "created", "updated"]
+	list_filter = ["updated", "created"]
+	search_fields = ["content"]
+	class Meta:
+		model = Comment
+
 admin.site.register(Tag, TagModelAdmin)
 admin.site.register(Post, PostModelAdmin)
 admin.site.register(Extra)
+admin.site.register(Comment, CommentModelAdmin)
