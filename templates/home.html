@@ -23,14 +23,6 @@
             {% endif %}
             <div class="card-body">
                 <h3 class="card-title post-title"><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
-                <h6 class="card-subtitle mb-2"><small>
-                    {% if obj.updated != obj.timestamp %}
-                        {{obj.timestamp|date:'F j, Y'}}, updated {{obj.updated|timesince}} ago
-                    {% else %}
-                        {{obj.timestamp|date:'F j, Y'}}
-                    {% endif %}
-                </small></h6>
-
                 {% if obj.subtitle %}
                     {% if obj.isMarkdownContent %}
                         {% load markdownify %}
