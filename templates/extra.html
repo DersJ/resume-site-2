@@ -1,3 +1,4 @@
+<div class="col-md-6 offset-md-3">
 <div class="card mb-4">
   <div class="card-body">
     {% load markdownify %}
@@ -8,22 +9,27 @@
       <div class="mx-auto"><i>-{{ extra.author }}</i></div>
     </div>
     <a href="{{extra.link}}" target="blank">Source</a>
-    
+
     {% elif extra.contentType == 'book' %}
-      <h3 class="card-title"><em>{{ extra.title }}</em></h3>
-      <p>{{ extra.description|markdownify }}</p>
-      <a href="{{extra.link}}" target="blank">View on Amazon</a>
+    <h3 class="card-title"><em>{{ extra.title }}</em></h3>
+    <p>{{ extra.description|markdownify }}</p>
+    <a href="{{extra.link}}" target="blank">View on Amazon</a>
     {% elif extra.contentType == 'music' %}
-      <h3 class="card-title">{{ extra.title }}</h3>
-      <p>{{ extra.description|markdownify }}</p>
-      <a href="{{extra.link}}" target="blank">Listen on Spotify</a>
+    <h3 class="card-title">{{ extra.title }}</h3>
+    <p>{{ extra.description|markdownify }}</p>
+    <a href="{{extra.link}}" target="blank">Listen on Spotify</a>
+    {% elif extra.contentType == 'site' %}
+    <h3 class="card-title">{{ extra.title }}</h3>
+    <a href="{{extra.link}}" target="blank">{{extra.link}}</a>
+    <p>{{ extra.description|markdownify }}</p>
     {% else %}
-        <h3 class="card-title">{{ extra.title }}</h3>
-        <p>{{ extra.description|markdownify }}</p>
-        {% if extra.link %}
-          <a href="{{extra.link}}" target="blank">Link</a>
-        {% endif %}
+    <h3 class="card-title">{{ extra.title }}</h3>
+    <p>{{ extra.description|markdownify }}</p>
+    {% if extra.link %}
+    <a href="{{extra.link}}" target="blank">Link</a>
+    {% endif %}
     {% endif %}
 
   </div>
+</div>
 </div>

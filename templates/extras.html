@@ -1,10 +1,10 @@
-{% extends 'base.html' %} 
-{% load django_bootstrap_breadcrumbs %} 
-{% load static%} 
-{% block breadcrumbs %} 
-    {{ block.super }} 
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load static%}
+{% block breadcrumbs %}
+{{ block.super }}
 {% breadcrumb "about" "/about" %}
-{% endblock %} 
+{% endblock %}
 {% block content %}
 
 <div class="container">
@@ -14,18 +14,15 @@
                 <p class="fs-2">My favorite quotes, music, books and more</p>
             </div>
         </div>
-            <div class="col-lg-5 offset-lg-1 col">
-                {% for item in queryset1 %}
+            <div class="container">
+                <div class="row">
+                    {% for item in queryset1 %}
                     {% include 'extra.html' with extra=item %}
-                {% endfor %}
-            </div>
-            <div class="col-lg-5 col">
-                {% for item in queryset2 %}
-                {% include 'extra.html' with extra=item %}
-                {% endfor %}
+                    {% endfor %}
+                    </div>
             </div>
         </div>
-    </div>
+        </div>
 </div>
 
 {% endblock content %}
