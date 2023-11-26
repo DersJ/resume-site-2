@@ -4,7 +4,7 @@
             <!-- <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.display_name }}</a> -->
             <span class="text-primary">{{ comment.user.display_name }}</span>
             <span class="comment-date">
-                at {{ comment.created|date:"P" }} on {{ comment.created|date:"N nS, Y"}}
+                at {{ comment.created|date:"P" }} on {{ comment.created|date:"N dS, Y"}}
             </span>
         </div>
         <div>
