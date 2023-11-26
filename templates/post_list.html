@@ -66,7 +66,16 @@
                             <p class="card-text">{{obj.subtitle|linebreaks}}</p>
                         {% endif %}
                     {% else %}
-                    <p class="card-text">{% autoescape off %} {{obj.content|linebreaks|truncatechars:300}} {% endautoescape %}</p>
+                    <p class="card-text">
+                        {% autoescape off %} 
+                        {% if obj.isMarkdownContent %}
+                        {% load markdownify %}
+                        {{obj.content|markdownify|truncatechars:300}}
+                        {% else %}
+                        {{obj.content|linebreaks|truncatechars:300}} 
+                        {% endif %}
+                        {% endautoescape %}
+                    </p>
                     {% endif %}
                     <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary">View</a>
                 </div>
