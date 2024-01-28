@@ -11,9 +11,9 @@
 {% block head_title %} {{instance.title}} | {{block.super}} {%endblock head_title%}
 
 {%block content %}
-<div class="container-lg px-4 px-lg-0 post">
+<div class="container post">
 <div class="row">
-<div class='col'>
+<div class="col-lg-6 mx-auto">
 </br>
 {% if instance.image %}
 <img src='{{instance.image.url}}' class='img-fluid mb-4 rounded' />
@@ -28,9 +28,9 @@
         {% if user.is_staff %}
             <a href="{{ changeUrl }}" class="btn btn-outline-secondary">Edit post</a>
         {% endif %}
-        <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
+        <!-- <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
         <button class="copy-link-button btn btn-outline-secondary" data-bs-toggle="tooltip" 
-        data-bs-placement="bottom" title="Click to copy link">Copy Link</button>
+        data-bs-placement="bottom" title="Click to copy link">Copy Link</button> -->
     </div>
 </header>
 </div>
@@ -38,11 +38,13 @@
 {% autoescape off %}
 {% if instance.isMarkdownContent %}
 <div class="row">
-    <div class="col-lg-3">
-        <div class="sticky-lg-top">
-            <strong>In this post:</strong>
+    <div class="col-lg-6 mx-auto">
+        <strong>In this post:</strong>
             {{ toc }} 
 
+        {{ content }}
+
+        <div class="related">
             <strong>Related posts:</strong>
             <ul>
             {% for p in related %}
@@ -50,9 +52,6 @@
             {% endfor %}
             </ul>
         </div>
-    </div>
-    <div class="col-xl-8 col-lg-9">
-        {{ content }}
     </div>
 </div>
 {% else %}

@@ -2,60 +2,77 @@
 {%load static%}
 {%block content %}
 
-
 <div class="container my-container">
-
-<div class="my-3 mx-auto text-center p-2" style="max-width: 900px;">
-    <h1 class="logo mb-4">Anders Juengst</h1>
-    <p class="fs-4">Hi! I’m Anders, a senior full-stack engineer at <a href="https://unchained.com/"
-            target="blank">Unchained.</a> I write about software development. Read more about me <a href="/about">here.</a>
-    </p>
-</div>
-
-<div class="my-3 mx-auto" style="max-width: 950px;">
-    <h3>Recent Posts</h3>
-
-    {% for obj in post_list %}
-        <div class="card my-4 shadow-sm" >
-            {% if obj.image %}
-                <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
-            {% endif %}
-            <div class="card-body">
-                <h3 class="card-title post-title"><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
-                {% if obj.subtitle %}
-                    {% if obj.isMarkdownContent %}
-                        {% load markdownify %}
-                        {{obj.subtitle|markdownify}}
-                    {% else %}
-                        <p>{{obj.subtitle|linebreaks}}</p>
+    <div class="row my-3 mx-auto text-center p-2" style="max-width: 900px;">
+        <h1 class="logo mb-4">Anders Juengst</h1>
+        <p class="fs-4">Hi! I’m Anders, a senior full-stack engineer at <a href="https://unchained.com/"
+                target="blank">Unchained.</a> I write about software development. Read more about me <a href="/about">here.</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Blog</h3>
+            {% for obj in post_list %}
+                <div class="card mt-4 shadow-sm" >
+                    {% if obj.image %}
+                        <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
                     {% endif %}
-                {% else %}
-                <p class="card-text">
-                    {% autoescape off %} 
-                    {% if obj.isMarkdownContent %}
-                    {% load markdownify %}
-                    {{obj.content|markdownify|truncatechars:300}}
-                    {% else %}
-                    {{obj.content|linebreaks|truncatechars:300}} 
-                    {% endif %}
-                    {% endautoescape %}</p>
-                {% endif %}
-                <a href="{{obj.get_absolute_url}}" class="float-end btn bg-primary">View</a>
+                    <div class="card-body">
+                        <div class="card-title">
+                        <h3 class="post-title">
+                            <a href="{{obj.get_absolute_url}}">{{obj.title}}</a>
+                        </h3>
+                        <div class="mb-2">
+                            <small>{{obj.timestamp|date:"m/d/y" }}</small>
+                        </div>
+                        </div>
+                        
+                        {% if obj.subtitle %}
+                            {% if obj.isMarkdownContent %}
+                                {% load markdownify %}
+                                {{obj.subtitle|markdownify}}
+                            {% else %}
+                                <p>{{obj.subtitle|linebreaks}}</p>
+                            {% endif %}
+                        {% else %}
+                        <p class="card-text">
+                            {% autoescape off %} 
+                            {% if obj.isMarkdownContent %}
+                            {% load markdownify %}
+                            {{obj.content|markdownify|truncatechars:200}}
+                            {% else %}
+                            {{obj.content|linebreaks|truncatechars:200}} 
+                            {% endif %}
+                            {% endautoescape %}</p>
+                        {% endif %}
+                        <a href="{{obj.get_absolute_url}}" class="float-end btn btn-outline-secondary">View</a>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="text-center mb-4"><small><a href="/blog/">see more</a></small></div>
+                
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <h3>Projects</h3>
+            <div class="card my-4 shadow-sm" >
+                <div class="card-body">
+                        <p><a class="fs-4" href="https://ulti-verse.com" target="_blank">ulti-verse.com</a><br>
+                        Searchable index of USA Ultimate tournament, game,
+                        and roster data scraped from 2014 to present</p>
+                    <a href="/blog/7/" class="float-end btn btn-outline-secondary">Details</a> 
+                </div>
+            </div>
+            <div class="card my-4 shadow-sm" >
+                <div class="card-body">
+                        <p><a class="fs-4" href="https://nostr.how" target="_blank">Nostr.how</a><br>
+                        Explanation and onboarding 
+                        instructions for the Nostr protocol</p>
+                    <a href="/blog/9/" class="float-end btn btn-outline-secondary">Details</a> 
+                </div>
             </div>
         </div>
-    {% endfor %}
-    <small><a href="/blog/">see more</a></small>
+    </div>
 </div>
-
-<div class='row'>
-<div class='col'>
-
-</div>
-</div>
-</br>
-</div>
-
-    
-
 
 {%endblock content%}

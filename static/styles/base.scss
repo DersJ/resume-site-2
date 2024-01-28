@@ -147,7 +147,13 @@ $badge-font-size: .85em;
     }
 
     .comments-container {
-        margin-top: 64px;
+        margin-top: 16px;
+    }
+
+    .related {
+        border-top: 1px solid #ccc;
+        margin-top: 24px;
+        padding-top: 24px;
     }
 }
 

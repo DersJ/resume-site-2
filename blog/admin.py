@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import *
+from .models import Post, Tag, Comment, Extra
 
 class PostModelAdmin(admin.ModelAdmin):
 	list_display = ["__unicode__", "public", "isMarkdownContent", "timestamp", "updated"]
@@ -10,7 +10,6 @@ class PostModelAdmin(admin.ModelAdmin):
 	prepopulated_fields = {"slug": ("title",)}
 	class Meta:
 		model = Post
-
 class TagModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
