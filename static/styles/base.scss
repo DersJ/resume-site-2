@@ -136,14 +136,12 @@ $badge-font-size: .85em;
 
     @media (min-width: 992px) { 
         img {
-            max-width: 600px !important;
-            margin-left: 0 !important;
+            max-width: 100% !important;
         } 
     }
 
     img {
-        max-width: 60vw;
-        margin-left: 15vw;
+        max-width: 100%;
     }
 
     .comments-container {

@@ -13,7 +13,7 @@
 {%block content %}
 <div class="container post">
 <div class="row">
-<div class="col-lg-6 mx-auto">
+<div class="col-lg-8 mx-auto">
 </br>
 {% if instance.image %}
 <img src='{{instance.image.url}}' class='img-fluid mb-4 rounded' />
@@ -38,7 +38,7 @@
 {% autoescape off %}
 {% if instance.isMarkdownContent %}
 <div class="row">
-    <div class="col-lg-6 mx-auto">
+    <div class="col-lg-8 mx-auto">
         <strong>In this post:</strong>
             {{ toc }} 
 
