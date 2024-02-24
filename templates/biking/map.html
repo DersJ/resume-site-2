@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb 'biking' '/biking' %}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Cycling</h1>
+        <p>Visually plotting gps data from Strava</p>
+        <div id="map" style="height: 80vh;"></div>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="text/javascript">
+    var activities  = {{ activities|safe }};
+    var map = L.map('map').setView([35.9132, -79.0558], 13)
+    
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map)
+    
+    activities.forEach(function(activity) {
+      var coordinates = activity.waypoints.map(function(coordinate) {
+        return [coordinate.latitude, coordinate.longitude];
+      });
+      var polyline = L.polyline(coordinates, { color: 'red' }).addTo(map);
+    });
+
+    {% comment %} var polyline = L.polyline(coordinates, { color: 'red' }).addTo(map); {% endcomment %}
+    {% comment %} polyline.bindPopup('<a href="/biking/' + activity.id + '">' + activity.name + '</a>'); {% endcomment %}
+  </script>
+{% endblock %}

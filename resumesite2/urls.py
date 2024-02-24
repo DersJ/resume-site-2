@@ -23,6 +23,7 @@ from django.views.generic import TemplateView
 
 from blog.views import homepage, favorites
 from users.views import profile 
+from biking.views import map_view, importRides
 from .views import nostr
 
 
@@ -43,6 +44,8 @@ urlpatterns = [
     path('engl105/science/', TemplateView.as_view(template_name='engl105/science.html')),
     path('engl105/conflict/', TemplateView.as_view(template_name='engl105/conflict.html')),
     path('engl105/reflection/', TemplateView.as_view(template_name='engl105/reflection.html')),
+    path('biking/import/', importRides, name='importRides'),
+    path('biking/', map_view, name='biking'),
     path('.well-known/nostr.json', nostr)
 
 ]

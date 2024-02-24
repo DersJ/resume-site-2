@@ -19,5 +19,19 @@
       {% crispy user_form %}
     </div>
   </div>
+
+  <button id="myButton">Import rides</button>
 </div>
+
+<script>
+  document.getElementById('myButton').addEventListener('click', function() {
+      fetch('{% url 'importRides' %}', {
+          method: 'POST', // or 'GET'
+          headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+              'Content-Type': 'application/json',
+          },
+      });
+  });
+</script>
 {% endblock %}
