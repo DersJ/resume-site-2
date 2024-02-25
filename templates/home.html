@@ -14,9 +14,6 @@
             <h3>Blog</h3>
             {% for obj in post_list %}
                 <div class="card mt-4 shadow-sm" >
-                    {% if obj.image %}
-                        <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap"/>
-                    {% endif %}
                     <div class="card-body">
                         <div class="card-title">
                         <h3 class="post-title">
