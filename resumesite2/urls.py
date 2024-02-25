@@ -46,7 +46,7 @@ urlpatterns = [
     path('engl105/reflection/', TemplateView.as_view(template_name='engl105/reflection.html')),
     path('biking/import/', importRides, name='importRides'),
     path('biking/data/', activity_data, name='biking_data'),
-    path('biking/', map_view, name='biking'),
+    path('bike-map/', map_view, name='biking'),
     path('.well-known/nostr.json', nostr)
 
 ]

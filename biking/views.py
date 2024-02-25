@@ -1,11 +1,9 @@
 import json
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.core import serializers
 
 from biking.utils import importGPXFilesFromS3
-from .models import Activity, GPSTrackpoint 
-from django.core import serializers
+from .models import Activity 
 
 # Create your views here.
 def map_view(request, *args, **kwargs):
