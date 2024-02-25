@@ -39,8 +39,10 @@
 {% if instance.isMarkdownContent %}
 <div class="row">
     <div class="col-lg-8 mx-auto">
-        <strong>In this post:</strong>
+        {% if has_toc_entries %}
+            <strong>In this post:</strong>
             {{ toc }} 
+        {% endif %}
 
         {{ content }}
 
@@ -60,7 +62,7 @@
 
 {% endautoescape %}
 
-<div class="col-lg-8 offset-lg-3 comments-container">
+<div class="col-lg-8 mx-auto comments-container">
     {% include "comments.html" with comments=comments %}
 </div>
 

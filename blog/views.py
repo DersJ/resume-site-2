@@ -145,6 +145,10 @@ def post_detail(request, id):
         context["content"] = bleachMarkdown(
             md.convert(instance.content), markdownify_settings
         )
+        if "<li>" in md.toc:
+            context["has_toc_entries"] = True
+        else:
+            context["has_toc_entries"] = False
         context["toc"] = md.toc
 
     return render(request, "post_detail.html", context)
