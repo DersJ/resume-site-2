@@ -1,8 +1,28 @@
 from django.db import models
 import gpxpy
 import gpxpy.gpx
+from decouple import config
+import math
 
-# Ride model
+def is_within_distance(lat1, lon1):
+    lat2 = config("HOME_LATITUDE", cast=float)
+    lon2 = config("HOME_LONGITUDE", cast=float)
+    distance = 30
+    """
+    Calculate the great circle distance in meters between two points 
+    on the earth (specified in decimal degrees).
+    """
+    # Convert decimal degrees to radians 
+    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+
+    # Haversine formula 
+    dlat = lat2 - lat1 
+    dlon = lon2 - lon1 
+    a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a)) 
+    r = 6371000  # Radius of earth in meters
+    return (c * r) <= distance
+
 class Activity(models.Model):
     name = models.CharField(max_length=256, blank=True, null=True)
     datetime = models.DateTimeField(blank=True, null=True)
@@ -11,8 +31,17 @@ class Activity(models.Model):
     file = models.FileField(upload_to='rides/', blank=True)
     activityType = models.CharField(max_length=64, blank=True, null=True)
 
-    def waypoints(self):
-        return self.gpstrackpoint_set.all()
+    def filtered_trackpoints(self):
+        # return self.gpstrackpoint_set.all()
+        trackpoints = self.gpstrackpoint_set.all()
+        filtered_trackpoints = []
+        for trackpoint in trackpoints:
+            if not is_within_distance(float(trackpoint.latitude), float(trackpoint.longitude)):
+                filtered_trackpoints.append(trackpoint)
+        return filtered_trackpoints
+
+    def isInNC(self):
+        return self.gpstrackpoint_set.filter(latitude__gte=33.752, latitude__lte=36.588, longitude__gte=-84.321, longitude__lte=-75.400).exists()
 
     def __str__(self):
         return f"{self.name} - {self.datetime}"
@@ -24,7 +53,7 @@ class Activity(models.Model):
             'distance': self.distance,
             'comment': self.comment,
             'activityType': self.activityType,
-            'waypoints': [waypoint.serialize() for waypoint in self.waypoints()]
+            'waypoints': [trackpoint.serialize() for trackpoint in self.filtered_trackpoints()]
         }
     
     def save(self, *args, **kwargs):
@@ -88,4 +117,3 @@ class GPSTrackpoint(models.Model):
             'elevation': self.elevation,
             'datetime': self.datetime
         }
-    

@@ -9,15 +9,16 @@ from django.core import serializers
 
 # Create your views here.
 def map_view(request, *args, **kwargs):
+    return render(request, "biking/map.html")
+
+def activity_data(request):
     activities = Activity.objects.all()
     output = []
     for activity in activities:
-        output.append(activity.serialize())
+        if activity.isInNC():
+            output.append(activity.serialize())
     activities_json = json.dumps(output, default=str)
-    # activities_json = serializers.serialize('json', activities)
-    # print(activities_json)
-
-    return render(request, "biking/map.html", { 'activities': activities_json })
+    return HttpResponse(activities_json, content_type="application/json")
 
 # Post endpoint to import rides, returns 200 ok
 def importRides(request):

@@ -18,12 +18,12 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import include, path 
 from django.views.generic import TemplateView
 
 from blog.views import homepage, favorites
 from users.views import profile 
-from biking.views import map_view, importRides
+from biking.views import map_view, importRides, activity_data
 from .views import nostr
 
 
@@ -45,6 +45,7 @@ urlpatterns = [
     path('engl105/conflict/', TemplateView.as_view(template_name='engl105/conflict.html')),
     path('engl105/reflection/', TemplateView.as_view(template_name='engl105/reflection.html')),
     path('biking/import/', importRides, name='importRides'),
+    path('biking/data/', activity_data, name='biking_data'),
     path('biking/', map_view, name='biking'),
     path('.well-known/nostr.json', nostr)
 

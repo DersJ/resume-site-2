@@ -3,15 +3,20 @@
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb 'biking' '/biking' %}
+  {% breadcrumb 'map' '/map' %}
 {% endblock %}
 
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h1>Cycling</h1>
-        <p>Visually plotting gps data from Strava</p>
+      <div class="col-12 pt-2">
+        <p>
+          Plot of gps data from Strava
+          <span id="status"> — Loading... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+        </p>
+        <p>
+          Read more about <a href="/blog/15">Biking on every road in Chapel Hill</a> 
+        </p>
         <div id="map" style="height: 80vh;"></div>
       </div>
     </div>
@@ -20,19 +25,27 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script type="text/javascript">
-    var activities  = {{ activities|safe }};
-    var map = L.map('map').setView([35.9132, -79.0558], 13)
+    {% comment %} var activities  = {{ activities|safe }}; {% endcomment %}
+    var activities;
+    fetch('/biking/data/')
+      .then(function(response) { return response.json() })
+      .then(function(data) {
+        activities = data;
+        activities.forEach(function(activity) {
+          var coordinates = activity.waypoints.map(function(coordinate) {
+            return [coordinate.latitude, coordinate.longitude];
+          });
+          var polyline = L.polyline(coordinates, { color: 'red' }).addTo(map);
+        });
+        document.getElementById('status').style.display = 'none';
+      });
+    
+    var map = L.map('map').setView([35.931768, -79.022701], 13)
     
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map)
-    
-    activities.forEach(function(activity) {
-      var coordinates = activity.waypoints.map(function(coordinate) {
-        return [coordinate.latitude, coordinate.longitude];
-      });
-      var polyline = L.polyline(coordinates, { color: 'red' }).addTo(map);
-    });
+  
 
     {% comment %} var polyline = L.polyline(coordinates, { color: 'red' }).addTo(map); {% endcomment %}
     {% comment %} polyline.bindPopup('<a href="/biking/' + activity.id + '">' + activity.name + '</a>'); {% endcomment %}
