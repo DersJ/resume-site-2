@@ -47,8 +47,7 @@ urlpatterns = [
     path('biking/import/', importRides, name='importRides'),
     path('biking/data/', activity_data, name='biking_data'),
     path('bike-map/', map_view, name='biking'),
-    path('.well-known/nostr.json', nostr)
-
+    path('.well-known/nostr.json', nostr, name='nostr_config'),
 ]
 
 if settings.DEBUG:
