@@ -125,3 +125,44 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
+
+class MusicRelease(models.Model):
+    title = models.CharField(max_length=200)
+    artist = models.CharField(max_length=200)
+    release_date = models.DateField()
+    description = models.TextField(blank=True, default="")
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    public = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title
+
+class MusicReleaseLink(models.Model):
+    music_release = models.ForeignKey(MusicRelease, on_delete=models.CASCADE, related_name="links")
+    link = models.URLField(max_length=200)
+    platform = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.platform} link to {self.music_release.title}"
+
+class LinktreeItem(models.Model):
+    title = models.CharField(max_length=200)
+    link = models.URLField(max_length=200)
+    description = models.TextField(blank=True, default="")
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    public = models.BooleanField(default=True)
+
+    post = models.ForeignKey('Post', on_delete=models.SET_NULL, null=True, blank=True, related_name='linktree_items')
+    extra = models.ForeignKey('Extra', on_delete=models.SET_NULL, null=True, blank=True, related_name='linktree_items')
+    music_release = models.ForeignKey('MusicRelease', on_delete=models.SET_NULL, null=True, blank=True, related_name='linktree_items')
+
+    def __str__(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title

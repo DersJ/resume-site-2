@@ -11,45 +11,23 @@
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-12 offset-md-3">
+            
             <h3>Music</h3>
 
-            <div class="card my-4 shadow-sm" >
-                <div class="card-body">
-                    <h3 class="fs-4 mb-1"><i>Hide and Seek (Remix)</i></h3>
-                    <p class="small">Anders, Imogen Heap</p>
-                    <p>
-                        Lisen on 
-                        <a href="https://www.youtube.com/watch?v=rbvAqhzDaxM" target="_blank">Youtube</a>,
-                        <a href="https://wavlake.com/album/78ac7455-2363-4b78-8347-174ba373585d" target="_blank">Wavlake</a>.
-                    </p>
+            {% for music_release in music_releases %}
+                <div class="card my-4 shadow-sm" >
+                    <div class="card-body">
+                        <h3 class="fs-4 mb-1"><i>{{music_release.title}}</i></h3>
+                        <p class="small">{{music_release.artist}}</p>
+                        <p>Listen on 
+                            {% for link in music_release.links.all %}
+                                <a href="{{link.link}}" target="_blank">{{link.platform}}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
                 </div>
-            </div> 
-            
-            <div class="card my-4 shadow-sm" >
-                <div class="card-body">
-                    <h3 class="fs-4 mb-1"><i>Digital Love (Remix)</i></h3>
-                    <p class="small">Anders, Daft Punk, Pomplamoose</p>
-                    <p>
-                        Lisen on 
-                        <a href="https://wavlake.com/album/78ac7455-2363-4b78-8347-174ba373585d" target="_blank">Wavlake</a>.
-                    </p>
-                </div>
-            </div> 
-
-            <div class="card my-4 shadow-sm" >
-                <div class="card-body">
-                    <h3 class="fs-4 mb-1"><i>The Long View</i></h3>
-                    <p class="small">Ben and Ders</p>
-                    <p>
-                        Lisen on 
-                        <a href="https://www.wavlake.com/ben-and-ders" target="_blank">Wavlake</a>,
-                        <a href="https://open.spotify.com/album/2LolrXfhdUQAC7h9tHFgrz?si=sdO4GMi2Td6V8jB2Dpz_dA" target="_blank">Spotify</a>
-                        or
-                        <a href="https://distrokid.com/hyperfollow/benandders/the-long-view-2" target="_blank">your music streaming service</a>
-                    </p>
-                </div>
-            </div>      
-
+            {% endfor %}
+            <div class="border-top my-4"></div>
             <h3>Blog</h3>
             {% for obj in post_list %}
                 <div class="card mt-4 shadow-sm" >
@@ -86,7 +64,7 @@
                 </div>
             {% endfor %}
             <div class="text-center mb-4"><small><a href="/blog/">see more</a></small></div>
-                
+            <div class="border-top my-4"></div>    
             <h3>Projects</h3>
             <div class="card my-4 shadow-sm" >
                 <div class="card-body">

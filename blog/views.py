@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -12,7 +13,7 @@ import json, markdown, bleach
 
 # Create your views here.
 
-from .models import *
+from .models import MusicRelease, Post, Tag, Comment, Extra
 from .forms import CommentForm, PostForm
 
 
@@ -55,7 +56,9 @@ def getAllTags():
 
 def homepage(request):
     queryset = queryRecentPosts(request, [], 3)
-    return render(request, "home.html", {"post_list": queryset})
+    music_releases = MusicRelease.objects.filter(public=True).order_by("-timestamp").prefetch_related('links')
+
+    return render(request, "home.html", {"post_list": queryset, "music_releases": music_releases})
 
 
 def post_create(request):
