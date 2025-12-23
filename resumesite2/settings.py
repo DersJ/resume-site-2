@@ -147,7 +147,7 @@ SITE_ID = config("SITE_ID", cast=int)
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "EST"
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
