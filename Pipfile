@@ -15,11 +15,10 @@ python-decouple = "==3.1"
 pytz = "==2018.4"
 six = "==1.11.0"
 sqlparse = "==0.4.4"
-Django = "~=3.2"
+Django = "~=4.2"
 boto3 = "~=1.20"
 django-compressor = "*"
 django-libsass = "*"
-django-bootstrap-breadcrumbs = "*"
 django-markdownify = "==0.9.1"
 bleach = "~=4.1"
 pygments = "==2.11.2"
@@ -31,8 +30,9 @@ Collectfast = "==2.2.0"
 gpxpy = "1.6.2"
 certifi = ">=2023.7.22"
 requests = ">=2.31.0"
+django-upgrade = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"

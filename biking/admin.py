@@ -9,6 +9,7 @@ from .models import Activity, GPSTrackpoint
 def import_rides(modeladmin, request, queryset):
     importGPXFilesFromS3()
 
+@admin.register(Activity)
 class ActivityModelAdmin(admin.ModelAdmin):
     list_display = ["__str__", "file"]
     actions = [import_rides]
@@ -18,5 +19,4 @@ class ActivityModelAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Activity, ActivityModelAdmin)
 admin.site.register(GPSTrackpoint)

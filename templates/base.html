@@ -33,14 +33,14 @@
         document.body.classList.add('dark'); // set state of darkMode on page load
       }
     </script>
-    {% load django_bootstrap_breadcrumbs %} 
-    {% block breadcrumbs %} 
-      {% clear_breadcrumbs %} 
-      {% breadcrumb "~" "/" %} 
+    {% load django_bootstrap_breadcrumbs %}
+    {% block breadcrumbs %}
+      {% clear_breadcrumbs %}
+      {% breadcrumb "~" "/" %}
     {% endblock %}
 
     <div class="wrapper">
-      {% include "navbar.html" %} 
+      {% include "navbar.html" %}
       {% include "messages_display.html" %} 
       {% block content %} 
       {% endblock content %}

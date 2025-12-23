@@ -7,8 +7,8 @@ urlpatterns = [
 	path('', views.post_list, name='list'),
     path('create/', views.post_create),
     path('denied/', TemplateView.as_view(template_name='access_denied.html')),
-    re_path(r'^(?P<id>\d+)/$', views.post_detail, name='detail'),
-    re_path(r'^(?P<id>\d+)/edit/$', views.post_update, name='update'),
+    path('<int:id>/', views.post_detail, name='detail'),
+    path('<int:id>/edit/', views.post_update, name='update'),
     re_path(r'^(?P<id>\d+)/delete/', views.post_delete),
     path('comment/delete/<int:id>/', views.comment_delete),
 ]
