@@ -15,6 +15,7 @@
 <div class="row">
 <div class="col-lg-8 mx-auto">
 <br>
+<div id="post-display-content">
 {% if instance.image %}
 <img src="{{instance.image.url}}" class="d-block mb-4 rounded mx-auto" style="max-height: 500px;" />
 {% endif %}
@@ -26,10 +27,10 @@
     </div>
     <div class="ms-lg-4 mt-3 mt-lg-0 flex-shrink-0">
         {% if user.is_staff %}
-            <a href="{{ changeUrl }}" class="btn btn-outline-secondary">Edit post</a>
+            <button id="edit-post-btn" class="btn btn-outline-secondary" data-post-id="{{ instance.id }}">Edit post</button>
         {% endif %}
         <!-- <a href="/blog/" class="mx-2 btn btn-outline-secondary">Return to List</a>
-        <button class="copy-link-button btn btn-outline-secondary" data-bs-toggle="tooltip" 
+        <button class="copy-link-button btn btn-outline-secondary" data-bs-toggle="tooltip"
         data-bs-placement="bottom" title="Click to copy link">Copy Link</button> -->
     </div>
 </header>
@@ -41,7 +42,7 @@
     <div class="col-lg-8 mx-auto">
         {% if has_toc_entries %}
             <strong>In this post:</strong>
-            {{ toc }} 
+            {{ toc }}
         {% endif %}
 
         {{ content }}
@@ -61,6 +62,63 @@
 {% endif %}
 
 {% endautoescape %}
+</div>
+
+{% if user.is_staff %}
+<div id="post-edit-form" class="row" style="display: none;">
+    <div class="col-lg-8 mx-auto">
+        <div class="card p-4 mb-4">
+            <h3>Edit Post</h3>
+            <form id="inline-post-form" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Title</label>
+                    <input type="text" name="title" value="{{ instance.title }}"
+                           class="form-control" id="id_title" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_content" class="form-label">Content</label>
+                    <textarea name="content" class="form-control" id="id_content"
+                              rows="15" required>{{ instance.content }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_image" class="form-label">Image</label>
+                    <input type="file" name="image" class="form-control" id="id_image" accept="image/*">
+                    {% if instance.image %}
+                    <small class="text-muted">Current: {{ instance.image.name }}</small>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="public" class="form-check-input"
+                           id="id_public" {% if instance.public %}checked{% endif %}>
+                    <label class="form-check-label" for="id_public">Public</label>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="isMarkdownContent" class="form-check-input"
+                           id="id_isMarkdownContent" {% if instance.isMarkdownContent %}checked{% endif %}>
+                    <label class="form-check-label" for="id_isMarkdownContent">Markdown Content</label>
+                </div>
+
+                <div id="form-errors" class="alert alert-danger" style="display: none;"></div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm" role="status"
+                              aria-hidden="true" id="save-spinner" hidden></span>
+                        Save Changes
+                    </button>
+                    <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="col-lg-8 mx-auto comments-container">
     {% include "comments.html" with comments=comments %}
@@ -69,5 +127,9 @@
 
 </div>
 
+{% if user.is_staff %}
+{% load static %}
+<script src="{% static 'js/post-edit.js' %}"></script>
+{% endif %}
 
 {% endblock content %}

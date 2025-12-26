@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.paginator import Paginator
 from hitcount.models import HitCount
@@ -184,19 +184,52 @@ def post_list(request):
 
 def post_update(request, id=None):
     if not request.user.is_staff:
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'error': 'Permission denied'}, status=403)
         return redirect("/blog/denied/")
+
     instance = get_object_or_404(Post, id=id)
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
     if request.method == "POST":
         form = PostForm(request.POST or None, request.FILES or None, instance=instance)
         try:
-            if form.is_valid:
-                form.save(commit=False).save()
-                messages.success(request, "Item saved")
+            if form.is_valid():
+                updated_instance = form.save(commit=False)
+                updated_instance.save()
+
+                if is_ajax:
+                    # Return JSON response for AJAX requests
+                    return JsonResponse({
+                        'success': True,
+                        'title': updated_instance.title,
+                        'content': updated_instance.content,
+                        'image_url': updated_instance.image.url if updated_instance.image else None,
+                        'public': updated_instance.public,
+                        'isMarkdownContent': updated_instance.isMarkdownContent
+                    })
+                else:
+                    messages.success(request, "Item saved")
+                    return HttpResponseRedirect(instance.get_absolute_url())
+            else:
+                if is_ajax:
+                    # Return validation errors as JSON
+                    return JsonResponse({
+                        'success': False,
+                        'errors': {field: errors for field, errors in form.errors.items()}
+                    }, status=400)
+                else:
+                    messages.error(request, "Form validation failed")
         except Exception as e:
-            messages.warning(
-                request, "Your post was not saved due to an error: {}".format(e)
-            )
+            if is_ajax:
+                return JsonResponse({
+                    'success': False,
+                    'error': str(e)
+                }, status=500)
+            else:
+                messages.warning(
+                    request, "Your post was not saved due to an error: {}".format(e)
+                )
     else:
         form = PostForm(instance=instance)
 
