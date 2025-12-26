@@ -7,11 +7,14 @@
     </div>
     
     <ul class="navbar-nav mx-auto mx-lg-0 fs-5 mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/blog/">Blog</a>
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link" href="/">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
+        <a class="nav-link" href="/music/">Music</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/blog/">Blog</a>
       </li>
       {% if request.user.is_authenticated %}
         <li class="nav-item">
@@ -23,6 +26,7 @@
           More
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/about">About</a>
           <a class="dropdown-item" href="/resume">Resume</a>
           <a class="dropdown-item" href="/extras">Extras</a>
           <button class="dropdown-item" onclick="toggleDarkmode()">Theme toggle</button>

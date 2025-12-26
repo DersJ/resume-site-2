@@ -18,7 +18,6 @@ from .forms import CommentForm, PostForm
 
 
 def queryRecentPosts(
-    request,
     tags,
     count="all",
     sort="newest",
@@ -30,6 +29,18 @@ def queryRecentPosts(
     queryset = Post.objects.order_by(orderby).filter(public__exact=True)
     if len(tags) > 0:
         queryset = queryset.filter(tags__slug__in=tags)
+    if count == "all":
+        return queryset
+    else:
+        return queryset[:count]
+
+def queryRecentMusicReleases(
+    count="all",
+    sort="newest",
+):
+    orderby = "{0}timestamp".format("-" if sort == "newest" else "")
+
+    queryset = MusicRelease.objects.order_by(orderby).prefetch_related('links').filter(public__exact=True)
     if count == "all":
         return queryset
     else:
@@ -55,10 +66,41 @@ def getAllTags():
 
 
 def homepage(request):
-    queryset = queryRecentPosts(request, [], 3)
-    music_releases = MusicRelease.objects.filter(public=True).order_by("-timestamp").prefetch_related('links')
+    queryset = queryRecentPosts([], 4)
+    music_releases = queryRecentMusicReleases(5)
 
-    return render(request, "home.html", {"post_list": queryset, "music_releases": music_releases})
+    # Create combined list for mobile view
+    combined_items = []
+
+    # Add blog posts with type indicator
+    for post in queryset:
+        combined_items.append({
+            'type': 'blog',
+            'item': post,
+            'timestamp': post.timestamp
+        })
+
+    # Add music releases with type indicator
+    for release in music_releases:
+        combined_items.append({
+            'type': 'music',
+            'item': release,
+            'timestamp': release.timestamp
+        })
+
+    # Sort combined list by timestamp (newest first)
+    combined_items.sort(key=lambda x: x['timestamp'], reverse=True)
+
+    return render(request, "home.html", {
+        "post_list": queryset,
+        "music_releases": music_releases,
+        "combined_items": combined_items
+    })
+
+
+def music_list(request):
+    music_releases = queryRecentMusicReleases()
+    return render(request, "music.html", {"music_releases": music_releases})
 
 
 def post_create(request):
@@ -161,7 +203,6 @@ def post_list(request):
     order = request.GET.get("sortBy", "newest")
     tags = request.GET.getlist("tag", [])
     queryset_list = queryRecentPosts(
-        request,
         tags,
         "all",
         order,

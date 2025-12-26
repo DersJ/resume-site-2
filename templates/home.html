@@ -9,38 +9,105 @@
             Check out my music and writing below. Read more about me <a href="/about">here.</a>
         </p>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-sm-12 offset-md-3">
-            
-            <h3>Music</h3>
+    <!-- Combined list for small screens -->
+    <div class="row d-lg-none">
+        <div class="col-md-8 col-sm-12 offset-md-2">
+            <h3 class="mb-4">Recent</h3>
+            {% for entry in combined_items %}
+                {% if entry.type == 'music' %}
+                    <div class="card my-4 shadow-sm">
+                        <div class="card-body">
+                            {% include "music_release_card.html" with music_release=entry.item show_badge=True %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card my-4 shadow-sm">
+                        <div class="card-body">
+                            
+                            <div class="card-title">
+                                <h3 class="post-title">
+                                    <span class="badge bg-primary text-black me-2 mb-1" style="font-size: 0.7rem; vertical-align: middle;">Blog</span><a href="{{entry.item.get_absolute_url}}">{{entry.item.title}}</a>
+                                </h3>
+                                <div class="mb-2">
+                                    <small>{{entry.item.timestamp|date:"m/d/y" }}</small>
+                                </div>
+                            </div>
 
+                            {% if entry.item.subtitle %}
+                                {% if entry.item.isMarkdownContent %}
+                                    {% load markdownify %}
+                                    {{entry.item.subtitle|markdownify}}
+                                {% else %}
+                                    <p>{{entry.item.subtitle|linebreaks}}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="card-text">
+                                    {% autoescape off %}
+                                    {% if entry.item.isMarkdownContent %}
+                                    {% load markdownify %}
+                                    {{entry.item.content|markdownify|truncatechars:200}}
+                                    {% else %}
+                                    {{entry.item.content|linebreaks|truncatechars:200}}
+                                    {% endif %}
+                                    {% endautoescape %}
+                                </p>
+                            {% endif %}
+                            <!-- <a href="{{entry.item.get_absolute_url}}" class="float-end btn btn-outline-secondary">View</a> -->
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="text-center mb-4"><small><a href="/blog/">see more blog posts</a></small></div>
+            <div class="border-top my-4"></div>
+            <h3>Projects</h3>
+            <div class="card my-4 shadow-sm" >
+                <div class="card-body">
+                        <p><a class="fs-4" href="https://ulti-verse.com" target="_blank">ulti-verse.com</a><br>
+                        Searchable index of USA Ultimate tournament, game,
+                        and roster data scraped from 2014 to present</p>
+                    <a href="/blog/7/" class="float-end btn btn-outline-secondary">Details</a>
+                </div>
+            </div>
+            <div class="card my-4 shadow-sm" >
+                <div class="card-body">
+                        <p><a class="fs-4" href="https://nostr.how" target="_blank">Nostr.how</a><br>
+                        Explanation and onboarding
+                        instructions for the Nostr protocol</p>
+                    <a href="/blog/9/" class="float-end btn btn-outline-secondary">Details</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Two column layout for large screens -->
+    <div class="row d-none d-lg-flex">
+        <div class="col-lg-5 offset-lg-1">
+            <h3>Music</h3>
             {% for music_release in music_releases %}
-                <div class="card my-4 shadow-sm" >
+                <div class="card my-4 shadow-sm">
                     <div class="card-body">
-                        <h3 class="fs-4 mb-1"><i>{{music_release.title}}</i></h3>
-                        <p class="small">{{music_release.artist}}</p>
-                        <p>Listen on 
-                            {% for link in music_release.links.all %}
-                                <a href="{{link.link}}" target="_blank">{{link.platform}}</a>{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        </p>
+                        {% include "music_release_card.html" %}
                     </div>
                 </div>
             {% endfor %}
-            <div class="border-top my-4"></div>
+            <div class="text-center" style="margin-top: -20px;"><small><a href="/music/">see more</a></small></div>
+        </div>
+
+        <div class="col-lg-5">
             <h3>Blog</h3>
             {% for obj in post_list %}
-                <div class="card mt-4 shadow-sm" >
+                <div class="card mt-4 shadow-sm">
                     <div class="card-body">
                         <div class="card-title">
-                        <h3 class="post-title">
-                            <a href="{{obj.get_absolute_url}}">{{obj.title}}</a>
-                        </h3>
-                        <div class="mb-2">
-                            <small>{{obj.timestamp|date:"m/d/y" }}</small>
+                            <h3 class="post-title">
+                                <a href="{{obj.get_absolute_url}}">{{obj.title}}</a>
+                            </h3>
+                            <div class="mb-2">
+                                <small>{{obj.timestamp|date:"m/d/y" }}</small>
+                            </div>
                         </div>
-                        </div>
-                        
+
                         {% if obj.subtitle %}
                             {% if obj.isMarkdownContent %}
                                 {% load markdownify %}
@@ -49,45 +116,51 @@
                                 <p>{{obj.subtitle|linebreaks}}</p>
                             {% endif %}
                         {% else %}
-                        <p class="card-text">
-                            {% autoescape off %} 
-                            {% if obj.isMarkdownContent %}
-                            {% load markdownify %}
-                            {{obj.content|markdownify|truncatechars:200}}
-                            {% else %}
-                            {{obj.content|linebreaks|truncatechars:200}} 
-                            {% endif %}
-                            {% endautoescape %}</p>
+                            <p class="card-text">
+                                {% autoescape off %}
+                                {% if obj.isMarkdownContent %}
+                                {% load markdownify %}
+                                {{obj.content|markdownify|truncatechars:200}}
+                                {% else %}
+                                {{obj.content|linebreaks|truncatechars:200}}
+                                {% endif %}
+                                {% endautoescape %}
+                            </p>
                         {% endif %}
-                        <a href="{{obj.get_absolute_url}}" class="float-end btn btn-outline-secondary">View</a>
+                        <!-- <a href="{{obj.get_absolute_url}}" class="float-end btn btn-outline-secondary">View</a> -->
                     </div>
                 </div>
             {% endfor %}
             <div class="text-center mb-4"><small><a href="/blog/">see more</a></small></div>
-            <div class="border-top my-4"></div>    
-            <h3>Projects</h3>
-            <div class="card my-4 shadow-sm" >
-                <div class="card-body">
-                        <p><a class="fs-4" href="https://ulti-verse.com" target="_blank">ulti-verse.com</a><br>
-                        Searchable index of USA Ultimate tournament, game,
-                        and roster data scraped from 2014 to present</p>
-                    <a href="/blog/7/" class="float-end btn btn-outline-secondary">Details</a> 
-                </div>
-            </div>
-            <div class="card my-4 shadow-sm" >
-                <div class="card-body">
-                        <p><a class="fs-4" href="https://nostr.how" target="_blank">Nostr.how</a><br>
-                        Explanation and onboarding 
-                        instructions for the Nostr protocol</p>
-                    <a href="/blog/9/" class="float-end btn btn-outline-secondary">Details</a> 
-                </div>
-            </div>
-
         </div>
-        <!-- <div class="col-md-6 col-sm-12">
-            
-            
-        </div> -->
+
+        <div class="col-lg-10 offset-lg-1">
+            <div class="border-top my-4"></div>
+            <h3>Projects</h3>
+            <div class="card my-4 shadow-sm">
+                <div class="card-body">
+                    <p><a class="fs-4" href="https://ulti-verse.com" target="_blank">ulti-verse.com</a><br>
+                    Searchable index of USA Ultimate tournament, game,
+                    and roster data scraped from 2014 to present</p>
+                    <a href="/blog/7/" class="float-end btn btn-outline-secondary">Details</a>
+                </div>
+            </div>
+            <div class="card my-4 shadow-sm">
+                <div class="card-body">
+                    <p><a class="fs-4" href="https://musicmap.ders.cloud" target="_blank">NYC Music Map</a><br>
+                    Map of NYC electronic music events scraped from RA, sortable by date and genre.</p>
+                    <a href="/blog/19/" class="float-end btn btn-outline-secondary">Details</a>
+                </div>
+            </div>
+            <div class="card my-4 shadow-sm">
+                <div class="card-body">
+                    <p><a class="fs-4" href="https://nostr.how" target="_blank">Nostr.how</a><br>
+                    Explanation and onboarding
+                    instructions for the Nostr protocol</p>
+                    <a href="/blog/9/" class="float-end btn btn-outline-secondary">Details</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Music" "/music" %}
+{% endblock %}
+
+{% block head_title %} Music | {{block.super}} {%endblock head_title%}
+
+{%block content %}
+
+<div class="container my-container">
+    <!-- <div class="row my-3 mx-auto text-center p-2" style="max-width: 900px;">
+        <h1>Music</h1>
+        <p class="fs-5">Listen to my releases on your favorite platform.</p>
+    </div> -->
+    <div class="row">
+        <div class="col-md-8 col-sm-12 col-lg-6 offset-md-2 offset-lg-3">
+            {% for music_release in music_releases %}
+                <div class="card my-4 shadow-sm">
+                    <div class="card-body">
+                        {% include "music_release_card.html" %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{%endblock content%}

@@ -1,0 +1,7 @@
+<h3 class="fs-4 mb-1">{% if show_badge %}<span class="badge bg-primary text-black me-2 mb-1" style="font-size: 0.7rem; vertical-align: middle;">Music</span>{% endif %}<i>{{music_release.title}}</i></h3>
+<p class="small">{{music_release.artist}}</p>
+<p>Listen on
+    {% for link in music_release.links.all %}
+        <a href="{{link.link}}" target="_blank">{{link.platform}}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>

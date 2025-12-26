@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import include, path 
 from django.views.generic import TemplateView
 
-from blog.views import homepage, favorites
+from blog.views import homepage, favorites, music_list
 from users.views import profile 
 from biking.views import map_view, importRides, activity_data
 from .views import nostr
@@ -33,6 +33,7 @@ urlpatterns = [
     path('accounts/profile/', profile),
     path('blog/', include('blog.urls', namespace='blog')),
 	path('', homepage, name='home'),
+    path('music/', music_list, name='music'),
     path('about', TemplateView.as_view(template_name='about.html')),
     path('extras/', favorites, name='extras'),
     path('resume/', TemplateView.as_view(template_name="resume.html")),
