@@ -128,6 +128,12 @@ def post_detail(request, id):
             comment.post = instance
             comment.user = request.user
             comment.save()
+
+            # For htmx requests, return just the new comment
+            if request.headers.get('HX-Request'):
+                return render(request, "comment_new.html", {"comment": comment})
+
+            # For regular requests, redirect as before
             return HttpResponseRedirect(reverse("blog:detail", args=[instance.id]))
     else:
         comment_form = CommentForm()
@@ -179,6 +185,13 @@ def post_list(request):
         "allTags": getAllTags(),
         "page_request_var": page_request_var,
     }
+
+    # Check if this is an htmx request
+    if request.headers.get('HX-Request'):
+        # Return only the partial template for htmx requests
+        return render(request, "post_list_content.html", context)
+
+    # Return full page for regular requests (graceful degradation)
     return render(request, "post_list.html", context)
 
 
@@ -233,6 +246,18 @@ def comment_delete(request, id=None):
         comment = get_object_or_404(Comment, id=id)
         print(request.user)
         if request.user == comment.user or request.user.is_staff:
+            # Store comment info before deleting
+            created = comment.created
+            user_display_name = comment.user.display_name
             comment.delete()
+
+            # For htmx requests, return a deleted comment placeholder
+            if request.headers.get('HX-Request'):
+                return render(request, "comment_deleted.html", {
+                    "created": created,
+                    "user_display_name": user_display_name
+                })
+
+            # For non-htmx requests (backward compatibility)
             return HttpResponse(status=204)
     return HttpResponse(status=403)

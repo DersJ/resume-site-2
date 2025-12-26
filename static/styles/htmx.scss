@@ -1,0 +1,38 @@
+// htmx loading states and transitions
+
+// Loading states - subtle opacity change during requests
+.htmx-request {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 200ms ease-in-out;
+}
+
+.htmx-swapping {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.htmx-settling {
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
+// Loading indicator (spinner) - hidden by default, shown during requests
+.htmx-indicator {
+  display: none;
+
+  &.htmx-request {
+    display: inline-block;
+    opacity: 1;
+  }
+}
+
+// Smooth content transitions for cards in post list
+.htmx-swapping .card {
+  opacity: 0;
+}
+
+.htmx-settling .card {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}

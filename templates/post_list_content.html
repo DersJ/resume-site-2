@@ -1,0 +1,76 @@
+{% for obj in object_list %}
+    <div class="card my-4 shadow-sm">
+    {% if obj.image %}
+        <img class="card-img-top d-block d-md-none" src="{{obj.image.url}}" alt="Card image cap"/>
+    {% endif %}
+    <div class="card-body d-flex flex-row">
+        <div class="">
+            <h3 class="card-title post-title"><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
+            <div class="mb-2">
+                {% include 'timestamp_tags.html' with post=obj %}
+            </div>
+            {% if obj.subtitle %}
+                {% if obj.isMarkdownContent %}
+                    {% load markdownify %}
+                    {{obj.subtitle|markdownify}}
+                {% else %}
+                    <p class="card-text">{{obj.subtitle|linebreaks}}</p>
+                {% endif %}
+            {% else %}
+            <p class="card-text">
+                {% autoescape off %}
+                {% if obj.isMarkdownContent %}
+                {% load markdownify %}
+                {{obj.content|markdownify|truncatechars:300}}
+                {% else %}
+                {{obj.content|linebreaks|truncatechars:300}}
+                {% endif %}
+                {% endautoescape %}
+            </p>
+            {% endif %}
+        </div>
+        {% if obj.image %}
+            <span class="flex-grow-1"></span>
+            <img class="d-none d-md-block ms-2 flex-shrink-1 rounded" style="max-height: 196px" src="{{obj.image.url}}" alt="Card image cap"/>
+        {% endif %}
+    </div>
+    </div>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}=1"
+               hx-get="?{{ page_request_var }}=1{% for tag in request.GET.getlist.tag %}&tag={{ tag }}{% endfor %}{% if request.GET.sortBy %}&sortBy={{ request.GET.sortBy }}{% endif %}"
+               hx-target="#post-list-container"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               hx-indicator="#loading-indicator">&laquo; first</a>
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}"
+               hx-get="?{{ page_request_var }}={{ object_list.previous_page_number }}{% for tag in request.GET.getlist.tag %}&tag={{ tag }}{% endfor %}{% if request.GET.sortBy %}&sortBy={{ request.GET.sortBy }}{% endif %}"
+               hx-target="#post-list-container"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               hx-indicator="#loading-indicator">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}"
+               hx-get="?{{ page_request_var }}={{ object_list.next_page_number }}{% for tag in request.GET.getlist.tag %}&tag={{ tag }}{% endfor %}{% if request.GET.sortBy %}&sortBy={{ request.GET.sortBy }}{% endif %}"
+               hx-target="#post-list-container"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               hx-indicator="#loading-indicator">next</a>
+            <a href="?{{ page_request_var }}={{ object_list.paginator.num_pages }}"
+               hx-get="?{{ page_request_var }}={{ object_list.paginator.num_pages }}{% for tag in request.GET.getlist.tag %}&tag={{ tag }}{% endfor %}{% if request.GET.sortBy %}&sortBy={{ request.GET.sortBy }}{% endif %}"
+               hx-target="#post-list-container"
+               hx-swap="innerHTML"
+               hx-push-url="true"
+               hx-indicator="#loading-indicator">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

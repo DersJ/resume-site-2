@@ -4,7 +4,13 @@
         <h4 class="mt-0">Leave a comment</h4>
         <div><span class="float-end"><span id="charCount">0</span> / 1500</span></div>
         {% load crispy_forms_tags %}
-        {% crispy comment_form %}
+        <form hx-post="{{ request.path }}"
+              hx-target="#comments-list"
+              hx-swap="afterbegin"
+              hx-on::after-request="if(event.detail.successful) this.reset(); document.getElementById('charCount').innerHTML = '0';">
+            {% csrf_token %}
+            {% crispy comment_form %}
+        </form>
         {% else %}
 
         <h4 class="mt-0">Comments</h4>
@@ -13,10 +19,12 @@
     </div>
 
 
-    {% for comment in comments %}
-    {% if comment.active %}
-        {% include "comment.html" with comment=comment %}
-    {% endif %}
-    {% endfor %}
+    <div id="comments-list">
+        {% for comment in comments %}
+        {% if comment.active %}
+            {% include "comment.html" with comment=comment %}
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
