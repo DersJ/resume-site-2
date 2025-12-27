@@ -18,8 +18,8 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path 
-from django.views.generic import TemplateView
+from django.urls import include, path
+from django.views.generic import TemplateView, RedirectView
 
 from blog.views import homepage, favorites, music_list
 from users.views import profile 
@@ -36,7 +36,7 @@ urlpatterns = [
     path('music/', music_list, name='music'),
     path('about', TemplateView.as_view(template_name='about.html')),
     path('extras/', favorites, name='extras'),
-    path('resume/', TemplateView.as_view(template_name="resume.html")),
+    path('resume/', RedirectView.as_view(url='https://www.linkedin.com/in/anders-juengst-26317b128/', permanent=False)),
     path('projects/', TemplateView.as_view(template_name='projects2.html')),
     path('contact/', TemplateView.as_view(template_name='contact.html')),
     path('coursework/', TemplateView.as_view(template_name='coursework.html')),
