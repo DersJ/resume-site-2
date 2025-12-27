@@ -1,18 +1,14 @@
-// Toggle between view and edit modes
-function toggleEditMode(show) {
-    const displayContent = document.getElementById('post-display-content');
-    const editForm = document.getElementById('post-edit-form');
+// Toggle collapse/expand of edit form
+function toggleFormCollapse() {
+    const formContent = document.getElementById('edit-form-content');
+    const toggleIcon = document.getElementById('toggle-icon');
 
-    if (show) {
-        displayContent.style.display = 'none';
-        editForm.style.display = 'block';
-        // Scroll to the form
-        editForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (formContent.style.display === 'none') {
+        formContent.style.display = 'block';
+        toggleIcon.textContent = '▼';
     } else {
-        displayContent.style.display = 'block';
-        editForm.style.display = 'none';
-        // Clear any error messages
-        document.getElementById('form-errors').style.display = 'none';
+        formContent.style.display = 'none';
+        toggleIcon.textContent = '▶';
     }
 }
 
@@ -34,17 +30,34 @@ function displayFormErrors(errors) {
 
 // Handle successful update
 function handleUpdateSuccess(data) {
-    // Reload the page to show updated content with proper markdown rendering
-    location.reload();
+    // Show success message briefly
+    const errorDiv = document.getElementById('form-errors');
+    errorDiv.className = 'alert alert-success alert-sm py-2';
+    errorDiv.innerHTML = 'Post updated successfully! Reloading...';
+    errorDiv.style.display = 'block';
+
+    // Reload after short delay to show success message
+    setTimeout(() => {
+        location.reload();
+    }, 800);
 }
 
 // Submit form via AJAX
-function submitPostEdit(postId) {
+function submitPostEdit() {
     const form = document.getElementById('inline-post-form');
     const formData = new FormData(form);
     const spinner = document.getElementById('save-spinner');
 
+    // Get post ID from URL path (e.g., /blog/123/)
+    const pathParts = window.location.pathname.split('/');
+    const postId = pathParts[pathParts.length - 2];
+
     spinner.removeAttribute('hidden');
+
+    // Clear any previous error messages
+    const errorDiv = document.getElementById('form-errors');
+    errorDiv.style.display = 'none';
+    errorDiv.className = 'alert alert-danger alert-sm py-2';
 
     fetch(`/blog/${postId}/edit/`, {
         method: 'POST',
@@ -75,7 +88,6 @@ function submitPostEdit(postId) {
             displayFormErrors(error.errors);
         } else if (error.error) {
             // Display general error message
-            const errorDiv = document.getElementById('form-errors');
             errorDiv.innerHTML = error.error;
             errorDiv.style.display = 'block';
         }
@@ -87,29 +99,22 @@ function submitPostEdit(postId) {
 
 // Initialize event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    const editBtn = document.getElementById('edit-post-btn');
-    const cancelBtn = document.getElementById('cancel-edit-btn');
+    const toggleBtn = document.getElementById('toggle-form-btn');
     const editForm = document.getElementById('inline-post-form');
 
-    if (editBtn) {
-        editBtn.addEventListener('click', function(e) {
+    // Collapse/expand toggle
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            toggleEditMode(true);
+            toggleFormCollapse();
         });
     }
 
-    if (cancelBtn) {
-        cancelBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleEditMode(false);
-        });
-    }
-
+    // Form submission
     if (editForm) {
         editForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const postId = document.getElementById('edit-post-btn').dataset.postId;
-            submitPostEdit(postId);
+            submitPostEdit();
         });
     }
 });
